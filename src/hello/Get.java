@@ -26,8 +26,7 @@ public class Get {
                 	result += output;
                 }
                 
-                
-                
+                //testingdf
                 parseJSon(result);
                 result = result.replaceAll(",", ",\n");
                 System.out.println(result);
