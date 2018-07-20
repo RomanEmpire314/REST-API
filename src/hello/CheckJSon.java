@@ -32,6 +32,7 @@ public class CheckJSon {
             }
             
             System.out.println(exist);
+            httpConnection1.disconnect();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

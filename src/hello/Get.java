@@ -1,8 +1,11 @@
 package hello;
 
-import java.io.*;
-import java.net.*;
-import org.json.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class Get {
 
@@ -13,8 +16,7 @@ public class Get {
             HttpURLConnection httpConnection = (HttpURLConnection) uc;
             httpConnection.setRequestMethod("GET");
             httpConnection.setRequestProperty("accept","application/json");
-            if(httpConnection.getResponseCode()!=200)
-            {
+            if(httpConnection.getResponseCode()!=200) {
                 throw new RuntimeException("Http POST request failed: " + httpConnection.getResponseCode());
             }
             else {
@@ -26,10 +28,10 @@ public class Get {
                 	result += output;
                 }
                 
-                parseJSon(result);
                 result = result.replaceAll(",", ",\n");
                 System.out.println(result);
             }
+            httpConnection.disconnect();
         }
         catch (IOException f){
             f.printStackTrace();
@@ -37,15 +39,5 @@ public class Get {
     }
     
      
-    public static void parseJSon (String theJSon) {
-    	try {
-    		JSONObject json1 = new JSONObject (theJSon);
-    		String email = json1.getString("email");
-    		System.out.println(email);
-    		
-    	} catch (JSONException e) {
-    		e.printStackTrace();
-    	}
-    }
-    
+
 }
