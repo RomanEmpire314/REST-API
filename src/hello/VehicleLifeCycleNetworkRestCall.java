@@ -10,10 +10,12 @@ import java.io.OutputStream;
 public class VehicleLifeCycleNetworkRestCall
 {
   protected final String restServer="http://192.168.0.4:3000/api/";
+  
   public String Url()
   {
     return restServer;
   }
+  
   public String get()
   {
     String finalString="";
