@@ -108,7 +108,7 @@ public class VehicleLifeCycleNetworkRestCall
     
   }
   
-  protected void Delete(String owner)
+  protected void delete(String owner)
   {
     
   }
