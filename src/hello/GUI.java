@@ -28,7 +28,33 @@ public class GUI {
 		
 		view.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
+				System.out.println("AAAA");
+
+				window.setVisible(false);
+				JFrame windowView = new JFrame ("Viewing Private Owner");
+				JPanel contentView = new JPanel();
+				contentView.setLayout(new FlowLayout());
 				
+				JLabel email = new JLabel("Enter your email"); contentView.add(email);
+				JTextField emailTF = new JTextField(""); 
+				emailTF.setPreferredSize(new Dimension(300,25));
+				contentView.add(emailTF);
+				
+				JButton searchB = new JButton("Search");
+				contentView.add(searchB);
+				
+				JPanel resultView = new JPanel();
+				contentView.add(resultView);
+				
+				
+			//	window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
+
+				
+				windowView.setContentPane(contentView);
+				windowView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				windowView.setLocation(100,100);
+				windowView.setSize(800,300);
+				windowView.setVisible(true);
 			}
 		});
 		

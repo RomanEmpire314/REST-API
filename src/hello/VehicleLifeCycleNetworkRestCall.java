@@ -21,26 +21,25 @@ public class VehicleLifeCycleNetworkRestCall
     String finalString="";
     try
     {
-      URL url= new URL(this.Url());
-      HttpURLConnection connection=(HttpURLConnection) url.openConnection();
-      connection.setDoOutput(false);
-      connection.setRequestMethod("GET");
-      connection.setRequestProperty("Content-type","application/json");
-      if(connection.getResponseCode()!=200)
-      {
-        finalString=("Http GET Request Failed: "+connection.getResponseCode());
-      }
-      else
-      {
-        String list="";
-        String output;
-        BufferedReader responseBuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        while((output=responseBuffer.readLine())!=null)
-        {
-          list=output;
-        }
-        finalString=list;
-      }
+		URL url= new URL(this.Url());
+		HttpURLConnection connection=(HttpURLConnection) url.openConnection();
+		connection.setDoOutput(false);
+		connection.setRequestMethod("GET");
+		connection.setRequestProperty("Content-type","application/json");
+		if(connection.getResponseCode()!=200)
+	    {
+	      finalString=("Http GET Request Failed: "+connection.getResponseCode());
+	    } else 
+	    {
+	        String list="";
+	        String output;
+	        BufferedReader responseBuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	        while((output=responseBuffer.readLine())!=null)
+	        {
+	          list=output;
+	        }
+	        finalString=list;
+	    }
     }
     catch(IOException e)
     {
