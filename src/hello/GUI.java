@@ -43,8 +43,17 @@ public class GUI {
 				JButton searchB = new JButton("Search");
 				contentView.add(searchB);
 				
-				JPanel resultView = new JPanel();
+				JLabel resultView = new JLabel();
 				contentView.add(resultView);
+				
+				
+				searchB.addActionListener(new ActionListener () {
+					public void actionPerformed (ActionEvent e) {
+						String idInput = emailTF.getText();
+						Owner owner = new Owner();
+						resultView.setText(owner.getByID(idInput));
+					}
+				});
 				
 				
 			//	window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
