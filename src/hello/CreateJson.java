@@ -22,7 +22,7 @@ public class CreateJson {
             System.out.println(input);
             OutputStream outputStream = httpconnection1.getOutputStream();
             outputStream.write(input.getBytes());
-             BufferedReader responsebuffer = new BufferedReader(new InputStreamReader(httpconnection1.getInputStream()));
+            BufferedReader responsebuffer = new BufferedReader(new InputStreamReader(httpconnection1.getInputStream()));
                 String output;
                 System.out.println("Output from HyperLedger Composer REST Server: ");
                 while ((output = responsebuffer.readLine()) != null) {

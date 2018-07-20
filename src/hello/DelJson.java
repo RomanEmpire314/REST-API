@@ -12,13 +12,13 @@ public class DelJson
   {
     try
     {
-      URL url= new URL("http://190.168.0.4:3000/api/PrivateOwner/anastasia/");
+      URL url= new URL("http://192.168.0.4:3000/api/PrivateOwner/anastasia/");
       HttpURLConnection httpConnection= (HttpURLConnection) url.openConnection();
       httpConnection.setDoOutput(true);
-      httpConnection.setRequestProperty("Content-type","application/json");
       httpConnection.setRequestMethod("DELETE");
-      httpConnection.connect();
+      httpConnection.setRequestProperty("accept","application/json");
       System.out.println(httpConnection.getResponseCode());
+
     }
     catch(IOException e)
     {
