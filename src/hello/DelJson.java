@@ -1,3 +1,5 @@
+package hello;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,7 +12,7 @@ public class DelJson
   {
     try
     {
-      URL url= new URL("http://190.168:3000/api/PrivateOwner/anastasia/");
+      URL url= new URL("http://190.168.0.4:3000/api/PrivateOwner/anastasia/");
       HttpURLConnection httpConnection= (HttpURLConnection) url.openConnection();
       httpConnection.setDoOutput(true);
       httpConnection.setRequestProperty("Content-type","application/json");
