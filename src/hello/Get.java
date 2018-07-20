@@ -15,7 +15,7 @@ public class Get {
             httpConnection.setRequestProperty("accept","application/json");
             if(httpConnection.getResponseCode()!=200)
             {
-                throw new RuntimeException("Http POST request failed: "+httpConnection.getResponseCode());
+                throw new RuntimeException("Http POST request failed: " + httpConnection.getResponseCode());
             }
             else {
                 BufferedReader responseBuffer = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
@@ -26,7 +26,6 @@ public class Get {
                 	result += output;
                 }
                 
-                //testingdf
                 parseJSon(result);
                 result = result.replaceAll(",", ",\n");
                 System.out.println(result);
