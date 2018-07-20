@@ -1,3 +1,5 @@
+package hello;
+
 public class Owner extends Person
 {
   private final String restCall="PrivateOwner/";

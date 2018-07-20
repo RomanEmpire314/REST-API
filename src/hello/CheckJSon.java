@@ -14,11 +14,10 @@ public class CheckJSon {
 		boolean exist;
 		final String ownerURL = "http://192.168.0.4:3000/api/PrivateOwner/";
 		String input = "ans";
-		try {
-			input = URLEncoder.encode(input);
-//			System.out.println(input);
-			input = ownerURL + input;
-			
+		input = URLEncoder.encode(input);
+		input = ownerURL + input;
+		
+		try {			
 			url1 = new URL(input);			
 			URLConnection connection1 = url1.openConnection();
 	        HttpURLConnection httpConnection1 = (HttpURLConnection)connection1;
