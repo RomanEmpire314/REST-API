@@ -7,15 +7,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-public class VehicleLifeCycleNetworkRestCall
+public class VehicleLifeCycleNetworkRESTCall
 {
   protected final String restServer="http://192.168.0.4:3000/api/";
-  
   public String Url()
   {
     return restServer;
   }
-  
   public String get()
   {
     String finalString="";
@@ -48,7 +46,6 @@ public class VehicleLifeCycleNetworkRestCall
     }
     return finalString;
   }
-  
   public String getByID(String iD)
   {
     String finalString="";
@@ -81,7 +78,6 @@ public class VehicleLifeCycleNetworkRestCall
     }
     return finalString;
   }
-  
   public boolean check(String iD)
   {
     boolean result=false;
@@ -103,30 +99,60 @@ public class VehicleLifeCycleNetworkRestCall
      }
     return result; 
   }
-  
-  protected void create(String newOwner)
+  protected void create(String newID)
   {
-   try
-   {
-     URL url= new URL(this.Url());
-     HttpURLConnection connection=(HttpURLConnection) url.openConnection();
-     connection.setDoOutput(true);
-     connection.setRequestMethod("POST");
-     connection.setRequestProperty("Content-type","application/json");
-   }
-   catch(IOException e)
-   {
-     e.printStackTrace();
-   }
+	  try
+	     {
+	       URL url= new URL(this.Url());
+	       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
+	       connection.setDoOutput(true);
+	       connection.setRequestMethod("POST");
+	       connection.setRequestProperty("Content-type","application/json");
+	       OutputStream outputStream=connection.getOutputStream();
+	       outputStream.write(newID.getBytes());
+	       outputStream.close();
+	     }
+	       catch(IOException e)
+	     {
+	        e.printStackTrace();
+	     }
   }
-  
-  protected void delete(String owner)
+  protected boolean Delete(String iD)
   {
-    
+	  boolean result=false;
+	  try
+	  {
+		  URL url= new URL(this.Url()+iD);
+	      HttpURLConnection connection=(HttpURLConnection) url.openConnection();
+	      connection.setDoOutput(true);
+	      connection.setRequestProperty("Content-type","application/json");
+	      connection.setRequestMethod("DELETE");
+	      connection.connect();
+	      if(connection.getResponseCode()==204)
+	    	  result=true;
+	  }
+	  catch(IOException e)
+	  {
+		  e.printStackTrace();
+	  }
+	  return result;
   }
-  
-  protected void edit(String owner)
+  protected void edit(String iD, String info)
   {
-    
+	  try
+	     {
+	       URL url= new URL(this.Url()+iD);
+	       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
+	       connection.setDoOutput(true);
+	       connection.setRequestMethod("PUT");
+	       connection.setRequestProperty("Content-type","application/json");
+	       OutputStream outputStream=connection.getOutputStream();
+	       outputStream.write(info.getBytes());
+	       outputStream.close();
+	     }
+	       catch(IOException e)
+	     {
+	        e.printStackTrace();
+	     }
   }
 }
