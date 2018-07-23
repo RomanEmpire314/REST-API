@@ -51,6 +51,7 @@ public class GUI {
 					public void actionPerformed (ActionEvent e) {
 						String idInput = emailTF.getText();
 						Owner owner = new Owner();
+						owner.getByID(idInput);
 						resultView.setText(owner.getByID(idInput));
 					}
 				});

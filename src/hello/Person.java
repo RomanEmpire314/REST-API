@@ -1,6 +1,6 @@
 package hello;
 
-public class Person extends VehicleLifeCycleNetworkRestCall{
+public class Person extends VehicleLifeCycleNetworkRESTCall{
 
     /**
      * @param args the command line arguments

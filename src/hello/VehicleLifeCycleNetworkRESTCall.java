@@ -1,6 +1,7 @@
 package hello;
 
 import java.net.URL;
+import java.net.URLEncoder;
 import java.net.HttpURLConnection;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -9,24 +10,26 @@ import java.io.OutputStream;
 
 public class VehicleLifeCycleNetworkRESTCall
 {
-  protected final String restServer="http://192.168.0.4:3000/api/";
-  public String Url()
+  protected final String restServer="http://192.168.0.4:3000/api/PrivateOwner/";
+  public String url()
   {
     return restServer;
   }
+  
+  
   public String get()
   {
     String finalString="";
     try
     {
-      URL url= new URL(this.Url());
+      URL url= new URL(this.url());
       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
       connection.setDoOutput(false);
       connection.setRequestMethod("GET");
       connection.setRequestProperty("Content-type","application/json");
       if(connection.getResponseCode()!=200)
       {
-        finalString=("Http GET Request Failed: "+connection.getResponseCode());
+        finalString=("Http GET Request Failed: "+connection.getResponseCode() + "\nUser not found");
       }
       else
       {
@@ -46,17 +49,21 @@ public class VehicleLifeCycleNetworkRESTCall
     }
     return finalString;
   }
+  
+  
   public String getByID(String iD)
   {
     String finalString="";
     try
     {
-      URL url= new URL(this.Url()+iD);
-      HttpURLConnection connection=(HttpURLConnection) url.openConnection();
-      connection.setDoOutput(false);
-      connection.setRequestMethod("GET");
-      connection.setRequestProperty("Content-type","application/json");
-      if(connection.getResponseCode()!=200)
+    	iD = URLEncoder.encode(iD);
+		URL url= new URL(this.url()+iD);
+		System.out.println(url);
+		HttpURLConnection connection=(HttpURLConnection) url.openConnection();
+		connection.setDoOutput(false);
+		connection.setRequestMethod("GET");
+		connection.setRequestProperty("Content-type","application/json");
+		if(connection.getResponseCode()!=200)
       {
         finalString=("Http GET Request Failed: "+connection.getResponseCode());
       }
@@ -78,12 +85,14 @@ public class VehicleLifeCycleNetworkRESTCall
     }
     return finalString;
   }
+  
+  
   public boolean check(String iD)
   {
     boolean result=false;
     try
      {
-       URL url= new URL(this.Url()+iD);
+       URL url= new URL(this.url()+iD);
        HttpURLConnection connection=(HttpURLConnection) url.openConnection();
        connection.setDoOutput(false);
        connection.setRequestMethod("HEAD");
@@ -99,11 +108,13 @@ public class VehicleLifeCycleNetworkRESTCall
      }
     return result; 
   }
+  
+  
   protected void create(String newID)
   {
 	  try
 	     {
-	       URL url= new URL(this.Url());
+	       URL url= new URL(this.url());
 	       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
 	       connection.setDoOutput(true);
 	       connection.setRequestMethod("POST");
@@ -117,12 +128,14 @@ public class VehicleLifeCycleNetworkRESTCall
 	        e.printStackTrace();
 	     }
   }
+  
+  
   protected boolean Delete(String iD)
   {
 	  boolean result=false;
 	  try
 	  {
-		  URL url= new URL(this.Url()+iD);
+		  URL url= new URL(this.url()+iD);
 	      HttpURLConnection connection=(HttpURLConnection) url.openConnection();
 	      connection.setDoOutput(true);
 	      connection.setRequestProperty("Content-type","application/json");
@@ -137,11 +150,13 @@ public class VehicleLifeCycleNetworkRESTCall
 	  }
 	  return result;
   }
+  
+  
   protected void edit(String iD, String info)
   {
 	  try
 	     {
-	       URL url= new URL(this.Url()+iD);
+	       URL url= new URL(this.url()+iD);
 	       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
 	       connection.setDoOutput(true);
 	       connection.setRequestMethod("PUT");
@@ -155,4 +170,6 @@ public class VehicleLifeCycleNetworkRESTCall
 	        e.printStackTrace();
 	     }
   }
+  
+ 
 }
