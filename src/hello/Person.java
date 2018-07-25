@@ -1,5 +1,5 @@
 package hello;
-
+import java.util.List;
 public class Person extends VehicleLifeCycleNetworkRESTCall{
 
     /**
@@ -7,8 +7,8 @@ public class Person extends VehicleLifeCycleNetworkRESTCall{
      */
     private String firstName; //store the first name
     private String lastName;  //store the last name
-    private String middleName;
-    private String nationalities;
+    private List<String> middleName;
+    private List<String> nationalities;
         //Default constructor
         //Initialize firstName and lastName to an empty string.
         //Postcondition: firstName = ""; lastName = "";
@@ -16,22 +16,21 @@ public class Person extends VehicleLifeCycleNetworkRESTCall{
     {
         firstName = "";
         lastName = "";
-        middleName="";
     }
 
         //Constructor with parameters
         //Set firstName and lastName according to the parameters.
         //Postcondition: firstName = first; lastName = last;
-    public Person(String first, String last,String middle)
+    public Person(String first, String last,List<String> middle)
     {
         setName(first, last);
-        setMiddleName(middle);
+        setMiddleNames(middle);
     }
         //Method to output the first name and last name
         //in the form firstName lastName.
     public String toString()
     {
-        return (firstName + " " +middleName+" "+ lastName+"\nNationalities:"+nationalities);
+        return (firstName + "  "+ lastName+"\nNationalities:"+nationalities);
     }
 
         //Method to set firstName and lastName according to
@@ -46,7 +45,7 @@ public class Person extends VehicleLifeCycleNetworkRESTCall{
     {
        firstName=first; 
     }
-    protected void setMiddleName(String middle)
+    protected void setMiddleNames(List<String> middle)
     {
         middleName=middle;
     }
@@ -54,7 +53,7 @@ public class Person extends VehicleLifeCycleNetworkRESTCall{
     {
         lastName=last;
     }
-    protected void setNationalities(String nations)
+    protected void setNationalities(List<String> nations)
     {
       nationalities=nations;
     }
@@ -64,7 +63,7 @@ public class Person extends VehicleLifeCycleNetworkRESTCall{
     {
         return firstName;
     }
-    public String getMiddleName()
+    public List<String> getMiddleNames()
     {
       return middleName;
     }
@@ -77,7 +76,7 @@ public class Person extends VehicleLifeCycleNetworkRESTCall{
     }
         //Method to return nationalities
         //Postcondition: The value of nationalities is returned.
-    public String getNationalities() 
+    public List<String> getNationalities() 
     {
         return nationalities;
     }
