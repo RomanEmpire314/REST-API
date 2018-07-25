@@ -50,7 +50,7 @@ public class GUI {
 				searchB.addActionListener(new ActionListener () {
 					public void actionPerformed (ActionEvent e) {
 						String idInput = emailTF.getText();
-						Owner owner = new Owner();
+						PrivateOwner owner = new PrivateOwner();
 						owner.getByID(idInput);
 						resultView.setText(owner.getByID(idInput));
 					}
