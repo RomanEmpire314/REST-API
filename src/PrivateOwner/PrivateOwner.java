@@ -38,7 +38,7 @@ public class PrivateOwner extends Person
 	  return $class;  
   }
   @JsonProperty("email")
-  protected void setEmail(String mail)
+  public void setEmail(String mail)
   {
       email=mail;
   }
@@ -47,7 +47,7 @@ public class PrivateOwner extends Person
       return email;
   }
   @JsonProperty("title")
-  protected void setTitle(String t)
+  public void setTitle(String t)
   {
 	  title=t;
   }
@@ -60,7 +60,7 @@ public class PrivateOwner extends Person
   {
 	  return con;
   }
-  protected void setContactDetails(ContactDetails con2)
+  public void setContactDetails(ContactDetails con2)
   {
 	  this.con=con2;
   }
@@ -95,7 +95,7 @@ public class PrivateOwner extends Person
 	}
 	  return ownerJson;
   }
-  protected void getCopyOf(PrivateOwner owner2)
+  public void getCopyOf(PrivateOwner owner2)
   {
 	  this.set$class(owner2.get$class());
 	  this.setEmail(owner2.getEmail());
