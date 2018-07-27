@@ -74,6 +74,7 @@ public class Member extends Person
 	  return ownerJson;
   }
   protected void getCopyOf(Member owner2)
+
   {
 	  this.set$class(owner2.get$class());
 	  this.setEmail(owner2.getEmail());

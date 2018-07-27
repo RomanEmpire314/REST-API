@@ -36,12 +36,12 @@ public class Person extends VehicleLifeCycleNetworkRESTCall{
         //Method to set firstName and lastName according to
         //the parameters.
         //Postcondition: firstName = first; lastName = last;
-    protected void setName(String first, String last)
+    public void setName(String first, String last)
     {
         firstName = first;
         lastName = last;
     }
-    protected void setFirstName(String first)
+    public void setFirstName(String first)
     {
        firstName=first; 
     }
@@ -49,6 +49,7 @@ public class Person extends VehicleLifeCycleNetworkRESTCall{
     {
         lastName=last;
     }
+
         //Method to return firstName.
         //Postcondition: The value of firstName is returned.
     public String getFirstName()
@@ -65,24 +66,25 @@ public class Person extends VehicleLifeCycleNetworkRESTCall{
         //Method to return nationalities
         //Postcondition: The value of nationalities is returned.
     protected boolean equals(Person newPerson)
+
     {
         return (newPerson.firstName.equals(firstName)&&newPerson.lastName.equals(lastName));
     }
-    protected void makeCopy(Person person1)
+    public void makeCopy(Person person1)
     {
         firstName=person1.firstName;
         lastName=person1.lastName;
     }
-    protected void getCopy(Person person2)
+    public void getCopy(Person person2)
     {
         person2.firstName=firstName;
         person2.lastName=lastName;
     }
-    protected boolean checkFirst(String first)
+    public boolean checkFirst(String first)
     {
         return(firstName.equals(first));
     }
-    protected boolean checkLast(String last)
+    public boolean checkLast(String last)
     {
         return(lastName.equals(last));
     }
