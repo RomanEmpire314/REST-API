@@ -1,7 +1,7 @@
 package PrivateOwner;
 import java.util.List;
 
-import blockchainNET.VehicleLifeCycleNetworkRESTCall;
+import hello.VehicleLifeCycleNetworkRESTCall;
 public class Person extends VehicleLifeCycleNetworkRESTCall{
 
     /**

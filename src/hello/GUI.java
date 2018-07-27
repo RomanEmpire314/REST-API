@@ -2,11 +2,13 @@ package hello;
 
 import java.awt.*;
 import java.awt.event.*;
+import PrivateOwner.PrivateOwner;
 
 import javax.swing.*;
 
 public class GUI {
 	public static void main (String [] args) {
+		//Build main GUI window
 		JFrame window = new JFrame ("Private Owner");
 		JPanel content = new JPanel();
 		
@@ -26,6 +28,7 @@ public class GUI {
 		JButton delete = new JButton("Delete"); center.add(delete);
 
 		
+		//function for button view
 		view.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
 				System.out.println("AAAA");
@@ -43,16 +46,37 @@ public class GUI {
 				JButton searchB = new JButton("Search");
 				contentView.add(searchB);
 				
-				JLabel resultView = new JLabel();
+				JTextArea resultView = new JTextArea();
+		//		resultView.setPreferredSize(new Dimension (400,200));
+				resultView.setEditable(false);
+				resultView.setLineWrap(true);
+				resultView.setOpaque(false);
+				resultView.setBorder(BorderFactory.createEmptyBorder());
 				contentView.add(resultView);
 				
+				JButton backB = new JButton ("Back");
+				contentView.add(backB);
 				
+				//function for the Search button
 				searchB.addActionListener(new ActionListener () {
 					public void actionPerformed (ActionEvent e) {
 						String idInput = emailTF.getText();
-						PrivateOwner owner = new PrivateOwner();
-						owner.getByID(idInput);
-						resultView.setText(owner.getByID(idInput));
+						System.out.println(idInput);
+						if (idInput.equals("")) {
+							resultView.setText("Input can't be empty");
+						} else {
+							PrivateOwner owner = new PrivateOwner();
+							owner.jsonMap(owner.getByID(idInput));
+							System.out.println(owner.toString());
+							resultView.setText(owner.toString());
+						}
+					}
+				});
+				
+				backB.addActionListener(new ActionListener () {
+					public void actionPerformed (ActionEvent e) {
+						window.setVisible(true);
+						windowView.dispose();
 					}
 				});
 				
@@ -78,5 +102,12 @@ public class GUI {
 	    window.setLocation(100,100);
 	    window.setSize(800,300);
 	    window.setVisible(true);
+	}
+	
+	public static String htmlConvert (String input) {
+		input = "<html>" + input;
+		input += "</html>";
+		input.replaceAll("\n", "</br>");
+		return input;
 	}
 }

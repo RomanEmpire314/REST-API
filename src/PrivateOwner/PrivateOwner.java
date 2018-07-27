@@ -70,7 +70,7 @@ public class PrivateOwner extends Person
       return ("Name: "+this.getFirstName()+" "+this.getMiddleNames()+" "+this.getLastName()+"\nNationalities: "+
       this.getNationalities()+"\nEmail: "+email);
   }
-  protected void jsonMap(String ownerJson) 
+  public void jsonMap(String ownerJson) 
   {
 		 try {
 			  ObjectMapper map= new ObjectMapper();
