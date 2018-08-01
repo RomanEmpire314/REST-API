@@ -1,6 +1,13 @@
 package hello;
 
 import java.net.URL;
+import java.util.List;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import PrivateOwner.Member;
+
 import java.net.HttpURLConnection;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -19,7 +26,7 @@ public class CarAuctionRESTCall
     String finalString="";
     try
     {
-      URL url= new URL(this.Url() + "/Member/");
+      URL url= new URL(this.Url());
       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
       connection.setDoOutput(false);
       connection.setRequestMethod("GET");
@@ -41,8 +48,22 @@ public class CarAuctionRESTCall
     {
       e.printStackTrace();
     }
-    return finalString;
+	
+    String result = "";
+    ObjectMapper mapper = new ObjectMapper();
+	try {
+		List<Member> listMember = mapper.readValue(finalString, new TypeReference<List<Member>>(){});
+		System.out.println(listMember);
+		for (int i = 0; i < listMember.size(); i++) {
+			result += (listMember.get(i).toString() + "\n\n");
+		};
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	
+	return result;
   }
+  
   public String getByID(String iD)
   {
     String finalString="";

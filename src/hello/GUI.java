@@ -233,15 +233,23 @@ public class GUI {
 				
 				JFrame vaWindow = new JFrame();
 				JPanel avContent = new JPanel();
-				avContent.add(resultView);
+		//		avContent.setLayout(new BorderLayout());
+				JTextArea viewAll = resultView;
+				//avContent.add(viewAll);
 				
-				CarAuctionRESTCall caller = new CarAuctionRESTCall();
+				JScrollPane scroll = new JScrollPane(viewAll);
+				scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+				scroll.setPreferredSize(new Dimension(600,350));
+				avContent.add(scroll, BorderLayout.CENTER);
+				
+				Member caller = new Member();
 				String result = caller.get();
-				resultView.setText(result);
+				viewAll.setText("All Members:\n\n" + result);
 				
-				
-				
-				
+				avContent.add(backB);
+				backButton(backB, vaWindow, window);
+
+						
 				vaWindow.setContentPane(avContent);
 				vaWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				vaWindow.setLocation(300,200);
@@ -273,7 +281,7 @@ public class GUI {
 	}
 	
 	public static void backButton (JButton back, JFrame ongoingFrame, JFrame home) {
-		back.setPreferredSize(new Dimension (100, 100));
+		back.setPreferredSize(new Dimension (80, 80));
 		back.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
 				home.setVisible(true);

@@ -47,7 +47,7 @@ public class Member extends Person
   @Override
   public String toString()
   {
-      return ("Name: "+this.getFirstName()+" "+" "+this.getLastName()+"\nEmail: "+email + "\nBalance: " + balance);
+      return ("Name: "+this.getFirstName()+" "+this.getLastName()+"\nEmail: "+email + "\nBalance: $" + balance);
   }
   public void jsonMap(String ownerJson) 
   {
@@ -83,12 +83,7 @@ public class Member extends Person
 	  this.setLastName(owner2.getLastName());
 	  this.setBalance(owner2.getBalance());
   }
-  public static void main(String[]args)
-  {
-	 Member owner=new Member();
-	 owner.jsonMap(owner.getByID("mana"));
-	 System.out.println(owner.toString());
-  }
+
 	public double getBalance() {
 		return balance;
 	}
