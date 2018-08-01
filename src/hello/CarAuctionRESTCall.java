@@ -19,22 +19,19 @@ public class CarAuctionRESTCall
     String finalString="";
     try
     {
-      URL url= new URL(this.Url());
+      URL url= new URL(this.Url() + "/Member/");
       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
       connection.setDoOutput(false);
       connection.setRequestMethod("GET");
       connection.setRequestProperty("Content-type","application/json");
-      if(connection.getResponseCode()!=200)
-      {
+      if(connection.getResponseCode()!=200) {
         finalString=("Http GET Request Failed: "+connection.getResponseCode());
-      }
-      else
-      {
+      } else {
         String list="";
         String output;
         BufferedReader responseBuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        while((output=responseBuffer.readLine())!=null)
-        {
+        
+        while((output=responseBuffer.readLine())!=null) {
           list=output;
         }
         finalString=list;

@@ -10,6 +10,9 @@ public class GUI {
 	
 	private static boolean searchPressed = false;
 	private static Font primaryFont = new Font ("TimeNewsRoman", Font.PLAIN, 16);
+	private static JTextArea resultView = new JTextArea();
+
+	
 	
 	public static void main (String [] args) {
 		//Build main GUI window
@@ -18,20 +21,22 @@ public class GUI {
 		
 		content.setLayout(new BorderLayout());
 		JPanel top = new JPanel();
-		JLabel topLabel = new JLabel("Choose what you want to do");
+		JLabel topLabel = new JLabel("What you want to do?");
 		topLabel.setFont(new Font("Impact", Font.PLAIN, 30));
 		top.add(topLabel);
 		
 		JPanel center = new JPanel();
-		center.setLayout(new GridLayout(2,3));
+		center.setLayout(new GridLayout(0,3));
 		JButton find = new JButton("Find"); center.add(find);
 		JButton create = new JButton("Create"); center.add(create);
 		JButton viewAll = new JButton("View All"); center.add(viewAll);
-		JButton check = new JButton("Check"); center.add(check);
+	//	JButton check = new JButton("Check"); center.add(check);
 	//	JButton edit = new JButton("Edit"); center.add(edit);
 	//	JButton delete = new JButton("Delete"); center.add(delete);
 		JButton backB = new JButton ("Back");
 
+		
+		resultViewProcess();
 
 		
 		/**
@@ -41,30 +46,29 @@ public class GUI {
 			public void actionPerformed (ActionEvent e) {
 				
 				window.setVisible(false);
-				JFrame windowView = new JFrame ("Viewing Member");
-				JPanel contentView = new JPanel();
-				contentView.setLayout(new BorderLayout());
+				
+				JFrame windowFind = new JFrame ("Viewing Member");
+				JPanel contentFind = new JPanel();
+				contentFind.setLayout(new BorderLayout());
+				
+				JPanel topFind = new JPanel();
+				topFind.setLayout(new FlowLayout());
+				contentFind.add(topFind, BorderLayout.PAGE_START);
 				
 				JPanel mainPanel = new JPanel();
 				mainPanel.setLayout(new FlowLayout());
-				contentView.add(mainPanel, BorderLayout.CENTER);
+				contentFind.add(mainPanel, BorderLayout.CENTER);
 				
-				JLabel email = new JLabel("Enter your email"); mainPanel.add(email);
+				JLabel email = new JLabel("Enter your email"); topFind.add(email);
 				JTextField emailTF = new JTextField(""); 
 				emailTF.setPreferredSize(new Dimension(300,25));
-				mainPanel.add(emailTF);
+				topFind.add(emailTF);
 				
 				JButton searchB = new JButton("Search");
-				mainPanel.add(searchB);
+				topFind.add(searchB);
 				
-				JTextArea resultView = new JTextArea();
 		//		resultView.setPreferredSize(new Dimension (400,200));
-				resultView.setEditable(false);
-				resultView.setLineWrap(true);
-				resultView.setOpaque(false);
-				resultView.setBorder(BorderFactory.createEmptyBorder());
-				resultView.setPreferredSize(new Dimension(600,500));
-				resultView.setFont(primaryFont);
+				
 				mainPanel.add(resultView);
 				
 				//function for the Search button
@@ -105,7 +109,7 @@ public class GUI {
 												"Last name:", editLast,
 												"Balance", editBalance
 										};																				
-										int option = JOptionPane.showConfirmDialog(windowView, message, "Editor", JOptionPane.OK_CANCEL_OPTION);
+										int option = JOptionPane.showConfirmDialog(windowFind, message, "Editor", JOptionPane.OK_CANCEL_OPTION);
 										if (option == JOptionPane.OK_OPTION) {											
 											String first = editFirst.getText();
 											String last = editLast.getText();
@@ -134,17 +138,18 @@ public class GUI {
 								delete.addActionListener(new ActionListener() {
 									public void actionPerformed (ActionEvent e) {
 										
-										int option = JOptionPane.showConfirmDialog(windowView, "Are you sure you want to delete user "
-												+ idInput, "Delete Member", JOptionPane.WARNING_MESSAGE);
+										int option = JOptionPane.showConfirmDialog(windowFind, "Are you sure you want to delete user "
+												+ idInput, "Delete Member", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 										if (option == JOptionPane.OK_OPTION) {
 											if (viewedMember.delete(viewedMember.getEmail())) {
-												resultView.setText("User " + idInput + " deleted successfully");
+												resultView.setText("User " + idInput + " is deleted successfully");
 											}
 										}
 										
 										
 									}
 								});
+								searchPressed = true;
 
 								
 							} else {
@@ -152,21 +157,20 @@ public class GUI {
 							}
 						}
 						
-						searchPressed = true;
 
 						
 					}
 				});// end of seach function
 				
 
-				contentView.add(backB, BorderLayout.EAST);
-				backButton(backB, windowView, window);
+				contentFind.add(backB, BorderLayout.EAST);
+				backButton(backB, windowFind, window);
 								
-				windowView.setContentPane(contentView);
-				windowView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				windowView.setLocation(100,100);
-				windowView.setSize(1000,600);
-				windowView.setVisible(true);
+				windowFind.setContentPane(contentFind);
+				windowFind.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				windowFind.setLocation(300,200);
+				windowFind.setSize(800,400);
+				windowFind.setVisible(true);
 			}
 		});
 		
@@ -224,6 +228,27 @@ public class GUI {
 		});
 		
 		
+		viewAll.addActionListener(new ActionListener () {
+			public void actionPerformed (ActionEvent e) {
+				
+				JFrame vaWindow = new JFrame();
+				JPanel avContent = new JPanel();
+				avContent.add(resultView);
+				
+				CarAuctionRESTCall caller = new CarAuctionRESTCall();
+				String result = caller.get();
+				resultView.setText(result);
+				
+				
+				
+				
+				vaWindow.setContentPane(avContent);
+				vaWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				vaWindow.setLocation(300,200);
+				vaWindow.setSize(800,400);
+				vaWindow.setVisible(true);
+			}
+		});
 		
 		
 		//to create window
@@ -232,12 +257,20 @@ public class GUI {
 		
 	    window.setContentPane(content);
 	    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    window.setLocation(100,100);
-	    window.setSize(800,300);
+	    window.setLocation(300,200);
+	    window.setSize(500,200);
 	    window.setVisible(true);
 	}
 	
 	
+	public static void resultViewProcess () {
+		resultView.setEditable(false);
+		resultView.setLineWrap(true);
+		resultView.setOpaque(false);
+		resultView.setBorder(BorderFactory.createEmptyBorder());
+		resultView.setPreferredSize(new Dimension(450,450));
+		resultView.setFont(primaryFont);
+	}
 	
 	public static void backButton (JButton back, JFrame ongoingFrame, JFrame home) {
 		back.setPreferredSize(new Dimension (100, 100));
