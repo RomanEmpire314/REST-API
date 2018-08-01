@@ -23,7 +23,13 @@ public class Member extends Person
     this.setFirstName(first);
     this.setLastName(last);
     this.balance = balance;
-    setEmail(mail);
+    this.setEmail(mail);
+  }
+  
+  public Member (String first, String last, double balance) {
+	  this.setFirstName(first);
+	  this.setLastName(last);
+	  this.balance = balance;
   }
  
   protected void set$class(String sclass)

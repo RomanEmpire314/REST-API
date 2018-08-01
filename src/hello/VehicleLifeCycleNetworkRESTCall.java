@@ -121,7 +121,7 @@ public class VehicleLifeCycleNetworkRESTCall
 	        e.printStackTrace();
 	     }
   }
-  protected boolean Delete(String iD)
+  protected boolean delete(String iD)
   {
 	  boolean result=false;
 	  try

@@ -10,23 +10,23 @@ public class GUI {
 	
 	public static void main (String [] args) {
 		//Build main GUI window
-		JFrame window = new JFrame ("Private Owner");
+		JFrame window = new JFrame ("Member");
 		JPanel content = new JPanel();
 		
 		content.setLayout(new BorderLayout());
 		JPanel top = new JPanel();
 		JLabel topLabel = new JLabel("Choose what you want to do");
-		topLabel.setFont(new Font("Impact", Font.PLAIN, 25));
+		topLabel.setFont(new Font("Impact", Font.PLAIN, 30));
 		top.add(topLabel);
 		
 		JPanel center = new JPanel();
 		center.setLayout(new GridLayout(2,3));
-		JButton view = new JButton("View"); center.add(view);
+		JButton find = new JButton("Find"); center.add(find);
 		JButton create = new JButton("Create"); center.add(create);
 		JButton viewAll = new JButton("View All"); center.add(viewAll);
 		JButton check = new JButton("Check"); center.add(check);
-		JButton edit = new JButton("Edit"); center.add(edit);
-		JButton delete = new JButton("Delete"); center.add(delete);
+	//	JButton edit = new JButton("Edit"); center.add(edit);
+	//	JButton delete = new JButton("Delete"); center.add(delete);
 		JButton backB = new JButton ("Back");
 
 
@@ -34,11 +34,11 @@ public class GUI {
 		/**
 		 * function for the "view" button
 		 */
-		view.addActionListener(new ActionListener () {
+		find.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
 
 				window.setVisible(false);
-				JFrame windowView = new JFrame ("Viewing Private Owner");
+				JFrame windowView = new JFrame ("Viewing Member");
 				JPanel contentView = new JPanel();
 				contentView.setLayout(new FlowLayout());
 				
@@ -57,24 +57,68 @@ public class GUI {
 				resultView.setOpaque(false);
 				resultView.setBorder(BorderFactory.createEmptyBorder());
 				contentView.add(resultView);
-				contentView.add(backB);
 				
 				//function for the Search button
 				searchB.addActionListener(new ActionListener () {
 					public void actionPerformed (ActionEvent e) {
 						String idInput = emailTF.getText();
+						Member viewedMember = new Member();
 						System.out.println(idInput);
 						if (idInput.equals("")) {
 							resultView.setText("Input can't be empty");
 						} else {
-							Member newMember = new Member();
-							newMember.jsonMap(newMember.getByID(idInput));
-							System.out.println(newMember.toString());
-							resultView.setText(newMember.toString());
+							if (viewedMember.check(idInput)) {
+								viewedMember.jsonMap(viewedMember.getByID(idInput));
+								System.out.println(viewedMember.toString());
+								resultView.setText(viewedMember.toString());
+								emailTF.setText("");
+							} else {
+								resultView.setText("User with ID " + idInput + " doesn't exist");
+							}
 						}
+						
+						JButton edit = new JButton ("Edit"); windowView.add(edit);
+						JButton delete = new JButton ("Delete"); windowView.add(delete);
+						
+						edit.addActionListener(new ActionListener () {
+							public void actionPerformed (ActionEvent e) {
+								JTextField editFirst = new JTextField();
+								JTextField editLast = new JTextField();
+								JTextField editBalance = new JTextField();
+								Object [] message = {
+										"First name:", editFirst,
+										"Last name:", editLast,
+										"Balance", editBalance
+								};
+								
+								
+								int option = JOptionPane.showConfirmDialog(windowView, message, "Editor", JOptionPane.OK_CANCEL_OPTION);
+								if (option == JOptionPane.OK_OPTION) {
+									
+									String first = editFirst.getText();
+									String last = editLast.getText();
+									String balance = editBalance.getText();
+									
+									if (first.equals("")) {
+										first = viewedMember.getFirstName();
+									}
+									if (last.equals("")) {
+										last = viewedMember.getLastName();
+									}
+									if (balance.equals("")) {
+										balance = String.valueOf(viewedMember.getBalance());
+									}
+									
+									Member editMember = new Member (first, last,Double.parseDouble(balance));
+									editMember.edit(idInput, editMember.genJson(editMember));
+								}
+							}
+						});
 					}
 				});
 				
+
+				contentView.add(backB);
 				backButton(backB, windowView, window);
 								
 				windowView.setContentPane(contentView);
@@ -89,10 +133,11 @@ public class GUI {
 		create.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
 				
-				window.setVisible(false);
-				JFrame windowCreate = new JFrame ("Creating A Private Owner");	
+				//window.setVisible(false);
+				/*JFrame windowCreate = new JFrame ("Creating A Private Owner");	
 				JPanel contentCreate = new JPanel();
 				contentCreate.setLayout(new FlowLayout());
+				*/
 				JTextField emailCreate = new JTextField();
 				JTextField firstCreate = new JTextField();
 				JTextField lastCreate = new JTextField();
@@ -106,11 +151,11 @@ public class GUI {
 				};
 				int option;
 				do {
-					option = JOptionPane.showConfirmDialog(windowCreate, message, "Input", JOptionPane.OK_CANCEL_OPTION);
-				} while (emailCreate.getText().equals("") && option == JOptionPane.OK_OPTION);
+					option = JOptionPane.showConfirmDialog(window, message, "Input", JOptionPane.OK_CANCEL_OPTION);
 					if (option == JOptionPane.OK_OPTION) {
-						if (emailCreate.getText().equals("")) {
-							JOptionPane.showMessageDialog(windowCreate, "Email can't be empty. Input again", "Error",JOptionPane.ERROR_MESSAGE);
+						if (firstCreate.getText().equals("") || lastCreate.getText().equals("") ||
+								balanceCreate.getText().equals("") || emailCreate.getText().equals("") ) {
+							JOptionPane.showMessageDialog(window, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 						} else {
 							Member newMember = new Member(firstCreate.getText(), lastCreate.getText(),
 									Double.parseDouble(balanceCreate.getText()), emailCreate.getText());
@@ -118,19 +163,20 @@ public class GUI {
 							newMember.create(result);
 						}
 					}
+				} while ( (firstCreate.getText().equals("") || lastCreate.getText().equals("") ||
+						balanceCreate.getText().equals("") || emailCreate.getText().equals("") ) && option == JOptionPane.OK_OPTION );
 				
-				contentCreate.add(backB);
-				windowCreate.setContentPane(contentCreate);
-				windowCreate.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				windowCreate.setLocation(100,100);
-				windowCreate.setSize(800,300);
-				windowCreate.setVisible(true);
+				
 				/*
+				contentCreate.add(backB);
+				backButton(backB, window, window);
 				
 				
-				
-				
-				
+				window.setContentPane(contentCreate);
+				window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				window.setLocation(100,100);
+				window.setSize(800,300);
+				window.setVisible(true);
 				*/
 				
 			}
