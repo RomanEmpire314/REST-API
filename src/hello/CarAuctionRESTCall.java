@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
-public class VehicleLifeCycleNetworkRESTCall
+public class CarAuctionRESTCall
 {
   protected final String restServer="http://192.168.0.4:3000/api/";
   public String Url()
@@ -141,11 +141,12 @@ public class VehicleLifeCycleNetworkRESTCall
 	  }
 	  return result;
   }
-  protected void edit(String iD, String info)
+  protected int edit(String iD, String info)
   {
-	  try
+	  try	
 	     {
 	       URL url= new URL(this.Url()+iD);
+	       System.out.println(url);
 	       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
 	       connection.setDoOutput(true);
 	       connection.setRequestMethod("PUT");
@@ -153,10 +154,12 @@ public class VehicleLifeCycleNetworkRESTCall
 	       OutputStream outputStream=connection.getOutputStream();
 	       outputStream.write(info.getBytes());
 	       outputStream.close();
+	       return connection.getResponseCode();
 	     }
 	       catch(IOException e)
 	     {
 	        e.printStackTrace();
 	     }
+	  return 0;
   }
 }

@@ -8,6 +8,9 @@ import javax.swing.*;
 
 public class GUI {
 	
+	private static boolean searchPressed = false;
+	private static Font primaryFont = new Font ("TimeNewsRoman", Font.PLAIN, 16);
+	
 	public static void main (String [] args) {
 		//Build main GUI window
 		JFrame window = new JFrame ("Member");
@@ -36,19 +39,23 @@ public class GUI {
 		 */
 		find.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
-
+				
 				window.setVisible(false);
 				JFrame windowView = new JFrame ("Viewing Member");
 				JPanel contentView = new JPanel();
-				contentView.setLayout(new FlowLayout());
+				contentView.setLayout(new BorderLayout());
 				
-				JLabel email = new JLabel("Enter your email"); contentView.add(email);
+				JPanel mainPanel = new JPanel();
+				mainPanel.setLayout(new FlowLayout());
+				contentView.add(mainPanel, BorderLayout.CENTER);
+				
+				JLabel email = new JLabel("Enter your email"); mainPanel.add(email);
 				JTextField emailTF = new JTextField(""); 
 				emailTF.setPreferredSize(new Dimension(300,25));
-				contentView.add(emailTF);
+				mainPanel.add(emailTF);
 				
 				JButton searchB = new JButton("Search");
-				contentView.add(searchB);
+				mainPanel.add(searchB);
 				
 				JTextArea resultView = new JTextArea();
 		//		resultView.setPreferredSize(new Dimension (400,200));
@@ -56,75 +63,109 @@ public class GUI {
 				resultView.setLineWrap(true);
 				resultView.setOpaque(false);
 				resultView.setBorder(BorderFactory.createEmptyBorder());
-				contentView.add(resultView);
+				resultView.setPreferredSize(new Dimension(600,500));
+				resultView.setFont(primaryFont);
+				mainPanel.add(resultView);
 				
 				//function for the Search button
 				searchB.addActionListener(new ActionListener () {
 					public void actionPerformed (ActionEvent e) {
 						String idInput = emailTF.getText();
 						Member viewedMember = new Member();
-						System.out.println(idInput);
+						String infoReceived; //received information under json format 
+						//System.out.println(idInput);
+						
 						if (idInput.equals("")) {
 							resultView.setText("Input can't be empty");
 						} else {
 							if (viewedMember.check(idInput)) {
-								viewedMember.jsonMap(viewedMember.getByID(idInput));
-								System.out.println(viewedMember.toString());
+								infoReceived = viewedMember.getByID(idInput);
+								viewedMember.jsonMap(infoReceived);
+					//			System.out.println(viewedMember.toString());
 								resultView.setText(viewedMember.toString());
 								emailTF.setText("");
+								
+								
+								JButton edit = new JButton ("Edit"); 
+								edit.setPreferredSize(new Dimension(100,60));
+								edit.setAlignmentX(Component.CENTER_ALIGNMENT);
+								JButton delete = new JButton ("Delete"); 
+								delete.setPreferredSize(new Dimension(100,60));
+								if (!searchPressed) {
+									mainPanel.add(edit); mainPanel.add(delete);
+								}
+								
+								edit.addActionListener(new ActionListener () {
+									public void actionPerformed (ActionEvent e) {
+										JTextField editFirst = new JTextField();
+										JTextField editLast = new JTextField();
+										JTextField editBalance = new JTextField();
+										Object [] message = {
+												"First name:", editFirst,
+												"Last name:", editLast,
+												"Balance", editBalance
+										};																				
+										int option = JOptionPane.showConfirmDialog(windowView, message, "Editor", JOptionPane.OK_CANCEL_OPTION);
+										if (option == JOptionPane.OK_OPTION) {											
+											String first = editFirst.getText();
+											String last = editLast.getText();
+											String balance = editBalance.getText();
+											
+											if (first.equals("")) {
+												first = viewedMember.getFirstName();
+											}
+											if (last.equals("")) {
+												last = viewedMember.getLastName();
+											}
+											if (balance.equals("")) {
+												balance = String.valueOf(viewedMember.getBalance());
+											}
+											System.out.println("first: " + first + "; last: " + last + "; balance: " + balance); 
+											
+											Member editMember = new Member (first, last,Double.parseDouble(balance),idInput);
+											editMember.edit(idInput, editMember.genJson());
+										}
+										
+										
+									}
+								}); // end of edit button ActionListener
+								
+								
+								delete.addActionListener(new ActionListener() {
+									public void actionPerformed (ActionEvent e) {
+										
+										int option = JOptionPane.showConfirmDialog(windowView, "Are you sure you want to delete user "
+												+ idInput, "Delete Member", JOptionPane.WARNING_MESSAGE);
+										if (option == JOptionPane.OK_OPTION) {
+											if (viewedMember.delete(viewedMember.getEmail())) {
+												resultView.setText("User " + idInput + " deleted successfully");
+											}
+										}
+										
+										
+									}
+								});
+
+								
 							} else {
 								resultView.setText("User with ID " + idInput + " doesn't exist");
 							}
 						}
 						
-						JButton edit = new JButton ("Edit"); windowView.add(edit);
-						JButton delete = new JButton ("Delete"); windowView.add(delete);
+						searchPressed = true;
+
 						
-						edit.addActionListener(new ActionListener () {
-							public void actionPerformed (ActionEvent e) {
-								JTextField editFirst = new JTextField();
-								JTextField editLast = new JTextField();
-								JTextField editBalance = new JTextField();
-								Object [] message = {
-										"First name:", editFirst,
-										"Last name:", editLast,
-										"Balance", editBalance
-								};
-								
-								
-								int option = JOptionPane.showConfirmDialog(windowView, message, "Editor", JOptionPane.OK_CANCEL_OPTION);
-								if (option == JOptionPane.OK_OPTION) {
-									
-									String first = editFirst.getText();
-									String last = editLast.getText();
-									String balance = editBalance.getText();
-									
-									if (first.equals("")) {
-										first = viewedMember.getFirstName();
-									}
-									if (last.equals("")) {
-										last = viewedMember.getLastName();
-									}
-									if (balance.equals("")) {
-										balance = String.valueOf(viewedMember.getBalance());
-									}
-									
-									Member editMember = new Member (first, last,Double.parseDouble(balance));
-									editMember.edit(idInput, editMember.genJson(editMember));
-								}
-							}
-						});
 					}
-				});
+				});// end of seach function
 				
 
-				contentView.add(backB);
+				contentView.add(backB, BorderLayout.EAST);
 				backButton(backB, windowView, window);
 								
 				windowView.setContentPane(contentView);
 				windowView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				windowView.setLocation(100,100);
-				windowView.setSize(800,300);
+				windowView.setSize(1000,600);
 				windowView.setVisible(true);
 			}
 		});
@@ -159,7 +200,7 @@ public class GUI {
 						} else {
 							Member newMember = new Member(firstCreate.getText(), lastCreate.getText(),
 									Double.parseDouble(balanceCreate.getText()), emailCreate.getText());
-							String result = newMember.genJson(newMember);
+							String result = newMember.genJson();
 							newMember.create(result);
 						}
 					}
@@ -199,6 +240,7 @@ public class GUI {
 	
 	
 	public static void backButton (JButton back, JFrame ongoingFrame, JFrame home) {
+		back.setPreferredSize(new Dimension (100, 100));
 		back.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
 				home.setVisible(true);

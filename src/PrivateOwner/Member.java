@@ -25,12 +25,7 @@ public class Member extends Person
     this.balance = balance;
     this.setEmail(mail);
   }
-  
-  public Member (String first, String last, double balance) {
-	  this.setFirstName(first);
-	  this.setLastName(last);
-	  this.balance = balance;
-  }
+
  
   protected void set$class(String sclass)
   {
@@ -67,13 +62,13 @@ public class Member extends Person
 			 e.printStackTrace();
 		 }
   }
-  public String genJson(Member owner)
+  public String genJson()
   {
 	  String ownerJson=null;
 	  ObjectMapper map= new ObjectMapper();
 	  map.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 	  try {
-		ownerJson=map.writeValueAsString(owner);
+		ownerJson=map.writeValueAsString(this);
 	} catch (IOException e) {
 		e.printStackTrace();
 	}

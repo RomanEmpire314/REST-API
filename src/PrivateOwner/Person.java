@@ -1,8 +1,6 @@
 package PrivateOwner;
-import java.util.List;
-
-import hello.VehicleLifeCycleNetworkRESTCall;
-public class Person extends VehicleLifeCycleNetworkRESTCall{
+import hello.CarAuctionRESTCall;
+public class Person extends CarAuctionRESTCall{
 
     /**
      * @param args the command line arguments
