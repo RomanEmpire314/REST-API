@@ -11,12 +11,34 @@ import PrivateOwner.Member;
 import java.net.HttpURLConnection;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Properties;
 
 public class CarAuctionRESTCall
 {
-  protected final String restServer="http://192.168.0.4:3000/api/";
+	private Properties config;
+	class Config
+	{
+	  public Config()
+	  {
+	    config= new Properties();
+	    try{
+	      config.load(new FileInputStream("Imported/rest.cfg"));
+	    }
+	    catch(IOException e){
+	      e.printStackTrace();
+	    }
+	  }
+	  public String getProperty(String key)
+	  {
+	    String value= config.getProperty(key);
+	    return value;
+	  }
+	}
+	Config file= new Config();
+	private String restServer=file.getProperty("URL");
   public String Url()
   {
     return restServer;
