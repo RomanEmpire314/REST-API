@@ -23,6 +23,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class UserGUI extends JFrame {
 
@@ -32,6 +33,9 @@ public class UserGUI extends JFrame {
 	private JButton btnDeleteAccount;
 	private String userName;
 	private JTextArea infoViewTA;
+	private JButton btnDeposit;
+	private JButton btnWithdrawal;
+	private JTextField balanceTF;
 	
 	/**
 	 * Launch the application.
@@ -87,6 +91,18 @@ public class UserGUI extends JFrame {
 		
 		
 		btnDeleteAccount = new JButton("Delete Account");
+		
+		btnDeposit = new JButton("Deposit");
+		
+		btnWithdrawal = new JButton("Withdrawal");
+
+		
+		balanceTF = new JTextField();
+		balanceTF.setText("0.0");
+		balanceTF.setColumns(10);
+		
+		JLabel label = new JLabel("$");
+		label.setHorizontalAlignment(SwingConstants.RIGHT);
 
 		
 		
@@ -96,26 +112,38 @@ public class UserGUI extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel)
-						.addComponent(infoViewTA, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(btnDeposit, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnWithdrawal, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+								.addGap(4))
+							.addComponent(infoViewTA, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblNewLabel))
 					.addGap(37)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(lblAccount)
 							.addContainerGap())
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addComponent(btnDeleteAccount, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
 								.addComponent(btnEditName, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
 							.addGap(39))))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(92)
+					.addComponent(label)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(balanceTF, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(256, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(lblAccount))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblAccount)
+						.addComponent(lblNewLabel))
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(18)
@@ -125,7 +153,15 @@ public class UserGUI extends JFrame {
 							.addComponent(btnEditName, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnDeleteAccount, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(115, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnDeposit, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+						.addComponent(btnWithdrawal, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(label)
+						.addComponent(balanceTF, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+					.addGap(29))
 		);
 		contentPane.setLayout(gl_contentPane);
 		
@@ -184,9 +220,18 @@ public class UserGUI extends JFrame {
 			}
 		});
 		
+		btnWithdrawal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					JOptionPane.showMessageDialog(null, "Are you sure you want to withdraw $" + Double.parseDouble(balanceTF.getText()) + "?",
+						"Withdraw", JOptionPane.QUESTION_MESSAGE);
+				} catch (NumberFormatException er) {
+					JOptionPane.showMessageDialog(null, "Invalid input", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
 		
 		
 	}
-	
-	
 }
