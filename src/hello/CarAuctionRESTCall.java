@@ -18,6 +18,7 @@ import java.util.Properties;
 
 public class CarAuctionRESTCall
 {
+<<<<<<< HEAD
 	private Properties config;
 	class Config
 	{
@@ -39,6 +40,9 @@ public class CarAuctionRESTCall
 	}
 	Config file= new Config();
 	private String restServer=file.getProperty("URL");
+=======
+  protected final String restServer="http://192.168.0.20:3001/api/";
+>>>>>>> 8442c3bf89127bb57519cc8063c14160637dde29
   public String Url()
   {
     return restServer;

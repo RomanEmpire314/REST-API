@@ -23,10 +23,10 @@ import java.awt.event.ActionEvent;
 
 public class GUILogin {
 
-	private JFrame frmCarAuction;
+	private JFrame frmAuctionLogin;
 	private JPanel mainPanel;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField tfUserName;
+	private JPasswordField tfPassword;
 	private Font mainFont = new Font ("Times New Roman", Font.PLAIN, 12);
 	private JButton btnCreateAccount;
 	private JButton btnLogin;
@@ -44,7 +44,7 @@ public class GUILogin {
 			public void run() {
 				try {
 					GUILogin window = new GUILogin();
-					window.frmCarAuction.setVisible(true);
+					window.frmAuctionLogin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -65,11 +65,12 @@ public class GUILogin {
 	 */
 	private void initialize() {
 		mainPanel = new JPanel();
-		frmCarAuction = new JFrame();
-		frmCarAuction.setTitle("Car Auction Login");
-		frmCarAuction.setBounds(100, 100, 400, 250);
-		frmCarAuction.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCarAuction.setContentPane(mainPanel);
+		frmAuctionLogin = new JFrame();
+		frmAuctionLogin.setResizable(false);
+		frmAuctionLogin.setTitle("Car Auction Login");
+		frmAuctionLogin.setBounds(100, 100, 400, 250);
+		frmAuctionLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAuctionLogin.setContentPane(mainPanel);
 		
 		JLabel lblWelcome = new JLabel("Welcome");
 		lblWelcome.setFont(new Font("Impact", Font.PLAIN, 25));
@@ -78,15 +79,16 @@ public class GUILogin {
 		JLabel lblNewLabel = new JLabel("Username");
 		lblNewLabel.setFont(mainFont);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		tfUserName = new JTextField();
+		tfUserName.setColumns(10);
 		
 		JLabel lblAdminPassword = new JLabel("Admin Password");
 		lblAdminPassword.setFont(mainFont);
 		
-		passwordField = new JPasswordField();
+		tfPassword = new JPasswordField();
 		
 		btnLogin = new JButton("Login");
+		
 		btnLogin.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		
 		JLabel lblNoAccount = new JLabel("Don't have an account?");
@@ -109,11 +111,11 @@ public class GUILogin {
 								.addGroup(gl_mainPanel.createSequentialGroup()
 									.addComponent(lblNewLabel)
 									.addGap(51)
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+									.addComponent(tfUserName, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
 								.addGroup(gl_mainPanel.createSequentialGroup()
 									.addComponent(lblAdminPassword)
 									.addGap(16)
-									.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+									.addComponent(tfPassword, GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
 								.addGroup(gl_mainPanel.createSequentialGroup()
 									.addComponent(lblNoAccount)
 									.addGap(18)
@@ -134,12 +136,12 @@ public class GUILogin {
 							.addComponent(lblWelcome, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addGap(23)
 							.addGroup(gl_mainPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tfUserName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNewLabel))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_mainPanel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblAdminPassword)
-								.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(tfPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
 					.addGap(18)
 					.addGroup(gl_mainPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNoAccount)
@@ -184,5 +186,38 @@ public class GUILogin {
 						balanceCreate.getText().equals("") || emailCreate.getText().equals("") ) && option == JOptionPane.OK_OPTION );
 			}
 		});
-	}
-}
+		
+		
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String userName = tfUserName.getText();
+				String adPassword = new String(tfPassword.getPassword());
+				
+				//check if it is the admin
+				if (adPassword.equalsIgnoreCase("thecooladmin")) {
+					System.out.println("Admin window"); 
+				} else {
+					//when it's the user
+					Member testMember = new Member();
+					if (userName.equals("")) {
+						JOptionPane.showMessageDialog(null, "User name can't be empty", "Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						if (testMember.check(userName)) {
+							System.out.println("User window");
+							UserGUI userWindow = new UserGUI(userName);
+							frmAuctionLogin.setVisible(false);
+						} else {
+							JOptionPane.showMessageDialog(null, "User " + userName + " doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+						
+					}
+				}
+			}
+		});
+		
+		
+		
+	} //end of methodCall()
+	
+	
+} //end of class

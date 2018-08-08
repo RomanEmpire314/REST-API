@@ -30,9 +30,6 @@ public class GUI {
 		JButton find = new JButton("Find"); center.add(find);
 		JButton create = new JButton("Create"); center.add(create);
 		JButton viewAll = new JButton("View All"); center.add(viewAll);
-	//	JButton check = new JButton("Check"); center.add(check);
-	//	JButton edit = new JButton("Edit"); center.add(edit);
-	//	JButton delete = new JButton("Delete"); center.add(delete);
 		JButton backB = new JButton ("Back");
 
 		
