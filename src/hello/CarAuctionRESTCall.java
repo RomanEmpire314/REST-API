@@ -18,9 +18,8 @@ import java.util.Properties;
 
 public class CarAuctionRESTCall
 {
-<<<<<<< HEAD
 	private Properties config;
-	class Config
+	public class Config
 	{
 	  public Config()
 	  {
@@ -38,11 +37,8 @@ public class CarAuctionRESTCall
 	    return value;
 	  }
 	}
-	Config file= new Config();
-	private String restServer=file.getProperty("URL");
-=======
-  protected final String restServer="http://192.168.0.20:3001/api/";
->>>>>>> 8442c3bf89127bb57519cc8063c14160637dde29
+	protected Config file= new Config();
+  protected final String restServer=file.getProperty("URL");
   public String Url()
   {
     return restServer;
@@ -205,5 +201,9 @@ public class CarAuctionRESTCall
 	        e.printStackTrace();
 	     }
 	  return 0;
+  }
+  public static void main (String[] args) {
+	  CarAuctionRESTCall auction= new CarAuctionRESTCall();
+	  System.out.println(auction.restServer);
   }
 }
