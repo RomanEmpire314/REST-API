@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Member extends Person
 {
-  private final String restCall="Member/";
+  private final String restCall="org.acme.vehicle.auction.Member/";
   private String email;
   private String $class="org.acme.vehicle.auction.Member";
   private double balance;

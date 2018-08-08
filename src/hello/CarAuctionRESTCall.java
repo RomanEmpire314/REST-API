@@ -16,7 +16,7 @@ import java.io.OutputStream;
 
 public class CarAuctionRESTCall
 {
-  protected final String restServer="http://192.168.0.4:3000/api/";
+  protected final String restServer="http://192.168.0.20:3001/api/";
   public String Url()
   {
     return restServer;
