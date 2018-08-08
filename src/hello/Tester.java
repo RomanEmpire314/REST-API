@@ -4,6 +4,7 @@ import javax.swing.*;
 public class Tester {
 
 	public static void main(String[] args) {
+		/*
 		JTextField username = new JTextField();
 		JTextField password = new JPasswordField();
 		JLabel lmao = new JLabel ("lmao");
@@ -24,6 +25,10 @@ public class Tester {
 		} else {
 		    System.out.println("Login canceled");
 		}
+		*/
+		
+		GUI testGUI = new GUI();
+		testGUI.main(null);
 		
 	}
 
