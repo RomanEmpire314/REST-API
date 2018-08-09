@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Member extends Person
 {
-  private final String restCall="org.acme.vehicle.auction.Member/";
+  private final String restCall=file.getProperty("Member");
   private String email;
   private String $class="org.acme.vehicle.auction.Member";
   private double balance;
@@ -24,8 +24,6 @@ public class Member extends Person
     this.balance = balance;
     this.setEmail(mail);
   }
-
- 
   protected void set$class(String sclass)
   {
 	  $class=sclass;

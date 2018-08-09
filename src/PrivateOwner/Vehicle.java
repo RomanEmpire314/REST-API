@@ -1,4 +1,6 @@
-package hello;
+package PrivateOwner;
+
+import hello.CarAuctionRESTCall;
 
 public class Vehicle extends CarAuctionRESTCall {
 	private String $class="org.acme.vehicle.auction.Vehicle";
