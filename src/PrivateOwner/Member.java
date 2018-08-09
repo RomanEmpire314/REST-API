@@ -15,8 +15,7 @@ public class Member extends Person
   public String Url(){
     return (this.restServer+restCall);
   }
-  public Member()
-  {
+  public Member()  {
   }
   public Member(String first, String last,  double balance, String mail)
   {
@@ -87,7 +86,7 @@ public class Member extends Person
 	public double getBalance() {
 		return balance;
 	}
-	protected void setBalance(double balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 } 

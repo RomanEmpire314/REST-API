@@ -68,7 +68,7 @@ public class GUILogin {
 		frmAuctionLogin = new JFrame();
 		frmAuctionLogin.setResizable(false);
 		frmAuctionLogin.setTitle("Car Auction Login");
-		frmAuctionLogin.setBounds(100, 100, 400, 250);
+		frmAuctionLogin.setBounds(100, 100, 402, 251);
 		frmAuctionLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAuctionLogin.setContentPane(mainPanel);
 		
@@ -95,6 +95,7 @@ public class GUILogin {
 		lblNoAccount.setFont(mainFont);
 		
 		btnCreateAccount = new JButton("Create Account");
+		btnCreateAccount.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		
 		
 		GroupLayout gl_mainPanel = new GroupLayout(mainPanel);
@@ -205,7 +206,7 @@ public class GUILogin {
 						if (testMember.check(userName)) {
 							System.out.println("User window");
 							UserGUI userWindow = new UserGUI(userName);
-							frmAuctionLogin.setVisible(false);
+							frmAuctionLogin.dispose();
 						} else {
 							JOptionPane.showMessageDialog(null, "User " + userName + " doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
 						}
