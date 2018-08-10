@@ -307,7 +307,7 @@ public class UserGUI extends JFrame {
 							throw new ArithmeticException ("Depositing negative money");
 						} 
 						
-						//depository actions
+						//depositing actions
 						currentMember.setBalance(currentMember.getBalance() + amountDeposit);
 						currentMember.edit(userName, currentMember.genJson());
 						JOptionPane.showMessageDialog(null, "Deposit $" + amountDeposit +

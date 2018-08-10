@@ -3,6 +3,7 @@ package hello;
 import java.net.URL;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,8 +20,10 @@ import java.util.Properties;
 public class CarAuctionRESTCall
 {
 	private Properties config;
+	
 	public class Config
 	{
+		@JsonIgnore
 	  public Config()
 	  {
 	    config= new Properties();
@@ -37,8 +40,9 @@ public class CarAuctionRESTCall
 	    return value;
 	  }
 	}
-	protected Config file= new Config();
-  protected final String restServer=file.getProperty("URL");
+	
+	public Config file= new Config();
+  public final String restServer=file.getProperty("URL");
   public String Url()
   {
     return restServer;
@@ -139,11 +143,12 @@ public class CarAuctionRESTCall
      }
     return result; 
   }
-  protected void create(String newID)
+  public void create(String newID)
   {
 	  try
 	     {
 	       URL url= new URL(this.Url());
+	       System.out.println(url + newID);
 	       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
 	       connection.setRequestMethod("POST");
 	       connection.setDoOutput(true);
@@ -161,7 +166,7 @@ public class CarAuctionRESTCall
 	        e.printStackTrace();
 	     }
   }
-  protected boolean delete(String iD)
+  public boolean delete(String iD)
   {
 	  boolean result=false;
 	  try
@@ -181,7 +186,7 @@ public class CarAuctionRESTCall
 	  }
 	  return result;
   }
-  protected int edit(String iD, String info)
+  public int edit(String iD, String info)
   {
 	  try	
 	     {
@@ -207,3 +212,6 @@ public class CarAuctionRESTCall
 	  System.out.println(auction.restServer);
   }
 }
+
+
+

@@ -204,7 +204,7 @@ public class GUILogin {
 						JOptionPane.showMessageDialog(null, "User name can't be empty", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						if (testMember.check(userName)) {
-							System.out.println("User window");
+							System.out.println(userName);
 							UserGUI userWindow = new UserGUI(userName);
 							frmAuctionLogin.dispose();
 						} else {

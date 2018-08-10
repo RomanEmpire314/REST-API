@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 public class Member extends Person
 {
@@ -64,6 +65,7 @@ public class Member extends Person
 	  String ownerJson=null;
 	  ObjectMapper map= new ObjectMapper();
 	  map.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+	  map.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 	  try {
 		ownerJson=map.writeValueAsString(this);
 	} catch (IOException e) {
@@ -87,4 +89,10 @@ public class Member extends Person
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+	
+	public static void main (String [] args) {
+		Member member = new Member();
+		System.out.println(member.Url());
+	}
+	
 } 

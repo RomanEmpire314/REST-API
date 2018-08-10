@@ -1,6 +1,8 @@
 package hello;
 import javax.swing.*;
 
+import others.GUI;
+
 public class Tester {
 
 	public static void main(String[] args) {
