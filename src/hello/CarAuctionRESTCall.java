@@ -19,6 +19,8 @@ import java.util.Properties;
 
 public class CarAuctionRESTCall
 {
+	private Config file= new Config();
+	private final String restServer=file.getProperty("URL");
 	private Properties config;
 	
 	public class Config
@@ -41,8 +43,7 @@ public class CarAuctionRESTCall
 	  }
 	}
 	
-	public Config file= new Config();
-  public final String restServer=file.getProperty("URL");
+	
   public String Url()
   {
     return restServer;

@@ -223,6 +223,8 @@ public class UserGUI extends JFrame {
 					System.out.println("first: " + first + "; last: " + last); 
 					
 					Member editMember = new Member (first, last,currentMember.getBalance(), userName);
+					//testing
+					System.out.println(editMember.genJson());
 					editMember.edit(userName, editMember.genJson());
 					infoViewTA.setText(editMember.toString());
 					JOptionPane.showMessageDialog(null, "Name changed successfully into " + editMember.toString(),

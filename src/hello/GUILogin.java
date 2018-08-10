@@ -180,6 +180,8 @@ public class GUILogin {
 							Member newMember = new Member(firstCreate.getText(), lastCreate.getText(),
 									Double.parseDouble(balanceCreate.getText()), emailCreate.getText());
 							String result = newMember.genJson();
+							//test
+							System.out.println(result);
 							newMember.create(result);
 						}
 					}
