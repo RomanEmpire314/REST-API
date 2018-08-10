@@ -1,4 +1,4 @@
-package PrivateOwner;
+package member;
 
 import java.io.IOException;
 import java.util.List;

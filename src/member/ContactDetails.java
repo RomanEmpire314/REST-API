@@ -1,4 +1,4 @@
-package PrivateOwner;
+package member;
 
 public class ContactDetails {
 		  private String $class="composer.base.ContractDetails";

@@ -1,4 +1,4 @@
-package hello;
+package general;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import PrivateOwner.Member;
+import member.Member;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -220,16 +220,13 @@ public class UserGUI extends JFrame {
 					if (last.equals("")) {
 						last = currentMember.getLastName();
 					}
-					System.out.println("first: " + first + "; last: " + last); 
 					
-					Member editMember = new Member (first, last,currentMember.getBalance(), userName);
-					//testing
-					System.out.println(editMember.genJson());
-					editMember.edit(userName, editMember.genJson());
-					infoViewTA.setText(editMember.toString());
-					JOptionPane.showMessageDialog(null, "Name changed successfully into " + editMember.toString(),
+					currentMember.setName(first, last);
+					currentMember.edit(userName, currentMember.genJson());
+					
+					infoViewTA.setText(currentMember.toString());
+					JOptionPane.showMessageDialog(null, "Name changed successfully into " + currentMember.toString(),
 							"Success", JOptionPane.INFORMATION_MESSAGE);
-
 				}
 				
 			}
@@ -243,7 +240,7 @@ public class UserGUI extends JFrame {
 				JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 				
 				if (option == JOptionPane.OK_OPTION) {
-					if (currentMember.delete(currentMember.getEmail())) {
+					if (currentMember.delete()) {
 						JOptionPane.showMessageDialog(null, "User " + userName + " is deleted successfully",
 								"Delete Success", JOptionPane.INFORMATION_MESSAGE);
 						infoViewTA.setText("User deleted");

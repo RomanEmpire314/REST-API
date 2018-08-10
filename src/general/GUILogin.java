@@ -1,4 +1,4 @@
-package hello;
+package general;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,7 +14,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import PrivateOwner.Member;
+import member.Member;
 
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
@@ -180,8 +180,6 @@ public class GUILogin {
 							Member newMember = new Member(firstCreate.getText(), lastCreate.getText(),
 									Double.parseDouble(balanceCreate.getText()), emailCreate.getText());
 							String result = newMember.genJson();
-							//test
-							System.out.println(result);
 							newMember.create(result);
 						}
 					}

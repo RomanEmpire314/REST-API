@@ -1,4 +1,4 @@
-package PrivateOwner;
+package member;
 
 import java.io.IOException;
 
@@ -81,6 +81,12 @@ public class Member extends Person
 	  this.setFirstName(owner2.getFirstName());
 	  this.setLastName(owner2.getLastName());
 	  this.setBalance(owner2.getBalance());
+  }
+  
+  
+  public boolean delete () {
+	  boolean abc = super.delete(this.email);
+	  return abc;
   }
 
 	public double getBalance() {

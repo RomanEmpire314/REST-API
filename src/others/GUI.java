@@ -2,10 +2,12 @@ package others;
 
 import java.awt.*;
 import java.awt.event.*;
-import PrivateOwner.Member;
-import hello.CarAuctionRESTCall;
+
+import member.Member;
 
 import javax.swing.*;
+
+import general.CarAuctionRESTCall;
 
 public class GUI {
 	

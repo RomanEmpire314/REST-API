@@ -1,5 +1,5 @@
-package PrivateOwner;
-import hello.CarAuctionRESTCall;
+package member;
+import general.CarAuctionRESTCall;
 public class Person extends CarAuctionRESTCall{
 
     /**
