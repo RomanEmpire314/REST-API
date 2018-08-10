@@ -19,8 +19,8 @@ import java.util.Properties;
 
 public class CarAuctionRESTCall
 {
-	private Config file= new Config();
-	private final String restServer=file.getProperty("URL");
+	protected Config file= new Config();
+	protected final String restServer=file.getProperty("URL");
 	private Properties config;
 	
 	public class Config
