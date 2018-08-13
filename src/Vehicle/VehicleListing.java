@@ -9,16 +9,22 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import general.CarAuctionRESTCall;
 
 public class VehicleListing extends CarAuctionRESTCall {
+	private final String restCall=file.getProperty("VehicleListing");
 	private String $class="org.acme.vehicle.auction.VehicleListing";
 	private String listingID;
 	private double reservePrice;
 	private String description;
 	private ListingState state= ListingState.FOR_SALE;
+	private Vehicle vehicle;
 	enum ListingState{
 		FOR_SALE,
 		RESERVE_NOT_MET,
 		SOLD
 	}
+	
+	public String Url(){
+	    return (this.restServer+restCall);
+	  }
 
 	public String get$class() {
 		return $class;
@@ -64,7 +70,6 @@ public class VehicleListing extends CarAuctionRESTCall {
 	  {
 		  String listing=null;
 		  ObjectMapper map= new ObjectMapper();
-		  map.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		  map.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 		  try {
 			listing=map.writeValueAsString(this);
@@ -86,6 +91,7 @@ public class VehicleListing extends CarAuctionRESTCall {
 	  {
 			 try {
 				  ObjectMapper map= new ObjectMapper();
+				  map.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		          VehicleListing vehicle= new VehicleListing();
 		          vehicle= map.readValue(vehicleJson, VehicleListing.class);
 		          this.getCopy(vehicle);
@@ -95,5 +101,13 @@ public class VehicleListing extends CarAuctionRESTCall {
 				 e.printStackTrace();
 			 }
 	  }
+
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
 
 }

@@ -51,6 +51,7 @@ public class Member extends Person
   {
 		 try {
 			  ObjectMapper map= new ObjectMapper();
+			  map.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 	          Member owner= new Member();
 	          owner= map.readValue(ownerJson, Member.class);
 	          this.getCopyOf(owner);
@@ -64,7 +65,6 @@ public class Member extends Person
   {
 	  String ownerJson=null;
 	  ObjectMapper map= new ObjectMapper();
-	  map.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 	  map.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 	  try {
 		ownerJson=map.writeValueAsString(this);
@@ -95,10 +95,4 @@ public class Member extends Person
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-	
-	public static void main (String [] args) {
-		Member member = new Member();
-		System.out.println(member.Url());
-	}
-	
 } 
