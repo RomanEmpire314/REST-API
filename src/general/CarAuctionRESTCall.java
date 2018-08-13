@@ -77,6 +77,7 @@ public class CarAuctionRESTCall
     {
       e.printStackTrace();
     }
+    /*
 	
     String result = "";
     ObjectMapper mapper = new ObjectMapper();
@@ -90,6 +91,8 @@ public class CarAuctionRESTCall
 	}
 	
 	return result;
+	*/
+    return finalString;
   }
   
   public String getByID(String iD)
@@ -146,28 +149,29 @@ public class CarAuctionRESTCall
      }
     return result; 
   }
-  public void create(String newID)
+  public boolean create(String newID)
   {
 	  try
 	     {
-	       URL url= new URL(this.Url());
-	       System.out.println(url + newID);
-	       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
-	       connection.setRequestMethod("POST");
-	       connection.setDoOutput(true);
-	       connection.setRequestProperty("Content-type","application/json");
-	       OutputStream outputStream=connection.getOutputStream();
-	       outputStream.write(newID.getBytes());
-	       BufferedReader responsebuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-           String output;
-           System.out.println("Output from HyperLedger Composer REST Server: ");
-           while ((output = responsebuffer.readLine()) != null) 
-            {System.out.println(output+"\n");}
-           }
-	       catch(IOException e)
-	     {
+			URL url= new URL(this.Url());
+			System.out.println(url + newID);
+			HttpURLConnection connection=(HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("POST");
+			connection.setDoOutput(true);
+			connection.setRequestProperty("Content-type","application/json");
+			OutputStream outputStream=connection.getOutputStream();
+			outputStream.write(newID.getBytes());
+			BufferedReader responsebuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			String output;
+			System.out.println("Output from HyperLedger Composer REST Server: ");
+			while ((output = responsebuffer.readLine()) != null) { 
+				System.out.println(output+"\n");
+			}
+			return (connection.getResponseCode() == 200);
+	     } catch(IOException e)  {
 	        e.printStackTrace();
 	     }
+	  return false; 
   }
   public boolean delete(String iD)
   {

@@ -171,22 +171,33 @@ public class GUILogin {
 				
 				int option;
 				do {
+					//User input
 					option = JOptionPane.showConfirmDialog(null, message, "Input", JOptionPane.OK_CANCEL_OPTION);
 					if (option == JOptionPane.OK_OPTION) {
+						
+						//Input validation
 						if (firstCreate.getText().equals("") || lastCreate.getText().equals("") ||
 								balanceCreate.getText().equals("") || emailCreate.getText().equals("") ) {
 							JOptionPane.showMessageDialog(null, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 						} else {
+							// Input validation successful, creating new member object
 							Member newMember = new Member(firstCreate.getText(), lastCreate.getText(),
 									Double.parseDouble(balanceCreate.getText()), emailCreate.getText());
 							String result = newMember.genJson();
-							newMember.create(result);
+							//create new member
+							if (newMember.create(result)) {
+								JOptionPane.showMessageDialog(null, "Create account successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+							} else {
+								JOptionPane.showMessageDialog(null, "Account creation failed", "Error", JOptionPane.ERROR_MESSAGE);
+							}
 						}
+						
 					}
+					
 				} while ( (firstCreate.getText().equals("") || lastCreate.getText().equals("") ||
 						balanceCreate.getText().equals("") || emailCreate.getText().equals("") ) && option == JOptionPane.OK_OPTION );
-			}
-		});
+			} //end of actionPerformed
+		}); //end of ActionListener
 		
 		
 		btnLogin.addActionListener(new ActionListener() {
