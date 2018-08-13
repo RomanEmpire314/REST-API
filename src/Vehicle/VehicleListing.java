@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import general.CarAuctionRESTCall;
 
-public class VehicleListing extends CarAuctionRESTCall {
+public class VehicleListing extends Vehicle {
 	private final String restCall=file.getProperty("VehicleListing");
 	private String $class="org.acme.vehicle.auction.VehicleListing";
 	private String listingID;
