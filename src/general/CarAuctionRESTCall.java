@@ -17,6 +17,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import javax.swing.JOptionPane;
+
 public class CarAuctionRESTCall
 {
 	protected Config file= new Config();
@@ -59,7 +61,7 @@ public class CarAuctionRESTCall
       connection.setRequestMethod("GET");
       connection.setRequestProperty("Content-type","application/json");
       if(connection.getResponseCode()!=200) {
-        finalString=("Http GET Request Failed: "+connection.getResponseCode());
+        JOptionPane.showMessageDialog(null, "Http GET Request Failed: "+connection.getResponseCode(), "Error", JOptionPane.ERROR_MESSAGE);
       } else {
         String list="";
         String output;
@@ -80,7 +82,6 @@ public class CarAuctionRESTCall
     ObjectMapper mapper = new ObjectMapper();
 	try {
 		List<Member> listMember = mapper.readValue(finalString, new TypeReference<List<Member>>(){});
-		System.out.println(listMember);
 		for (int i = 0; i < listMember.size(); i++) {
 			result += (listMember.get(i).toString() + "\n\n");
 		};
@@ -97,6 +98,7 @@ public class CarAuctionRESTCall
     try
     {
       URL url= new URL(this.Url()+iD);
+      System.out.println(url);
       HttpURLConnection connection=(HttpURLConnection) url.openConnection();
       connection.setDoOutput(false);
       connection.setRequestMethod("GET");

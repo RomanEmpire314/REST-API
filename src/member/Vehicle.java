@@ -5,7 +5,7 @@ import general.CarAuctionRESTCall;
 public class Vehicle extends CarAuctionRESTCall {
 	private String $class="org.acme.vehicle.auction.Vehicle";
 	private String vin;
-	private String owner;
+	private Member owner;
 	public String get$class() {
 		return $class;
 	}
@@ -18,7 +18,7 @@ public class Vehicle extends CarAuctionRESTCall {
 	public void setVin(String vin) {
 		this.vin = vin;
 	}
-	public String getOwner() {
+	public Member getOwner() {
 		return owner;
 	}
 	public void setOwner(String owner) {
