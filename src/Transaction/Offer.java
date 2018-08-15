@@ -1,17 +1,14 @@
 package Transaction;
 
 import java.util.Date;
-import java.util.List;
 
-import Vehicle.VehicleListing;
-
-public class Offer extends VehicleListing {
+public class Offer extends Transaction {
 	private final String restCall=file.getProperty("Offer");
 	private String $class="org.acme.vehicle.auction.Offer";
 	private double bidPrice;
 	private String listing;
 	private String member;
-	private Date timeStamp;
+	private Date timestamp;
 	
 	public String Url(){
 	    return (this.restServer+restCall);
@@ -49,12 +46,12 @@ public class Offer extends VehicleListing {
 		this.member = member;
 	}
 
-	public Date getTimeStamp() {
-		return this.timeStamp;
+	public Date getTimestamp() {
+		return this.timestamp;
 	}
 
-	public void setTimeStamp(Date timeStamp) {
-		this.timeStamp = timeStamp;
+	public void setTimestamp(Date timeStamp) {
+		this.timestamp = timeStamp;
 	}
 	
 	
