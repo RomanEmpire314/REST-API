@@ -1,6 +1,13 @@
 package Transaction;
 
+import java.io.IOException;
 import java.util.Date;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import member.Member;
 
 public class Offer extends Transaction {
 	private final String restCall=file.getProperty("Offer");
@@ -54,5 +61,44 @@ public class Offer extends Transaction {
 		this.timestamp = timeStamp;
 	}
 	
+	public void getCopyOf(Offer offer) {
+		this.listing=offer.getListing();
+		this.member=offer.getMember();
+		this.timestamp=offer.getTimestamp();
+		this.bidPrice=offer.getBidPrice();
+	}
 	
+	 public void jsonMap(String ownerJson) 
+	  {
+			 try {
+				  ObjectMapper map= new ObjectMapper();
+				  map.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		          Offer owner= new Offer();
+		          owner= map.readValue(ownerJson, Offer.class);
+		          this.getCopyOf(owner);
+			 }   
+			 catch(IOException e)
+			 {
+				 e.printStackTrace();
+			 }
+	  }
+	  public String genJson()
+	  {
+		  String ownerJson=null;
+		  ObjectMapper map= new ObjectMapper();
+		  map.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+		  try {
+			ownerJson=map.writeValueAsString(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		  return ownerJson;
+	  }
+	public static void main (String[]args) {
+		Offer offer= new Offer();
+		offer.setBidPrice(12324.23);
+		offer.setListing("resource:org.acme.vehicle.auction.VehicleListing#9480");
+		offer.setMember("resource:org.acme.vehicle.auction.Member#abc");
+		offer.create(offer.genJson());
+	}
 }
