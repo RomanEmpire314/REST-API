@@ -15,12 +15,27 @@ public class VehicleListing extends Vehicle {
 	private double reservePrice;
 	private String description;
 	private ListingState state= ListingState.FOR_SALE;
-	private Vehicle vehicle;
+	private String vehicle;
 	enum ListingState{
 		FOR_SALE,
 		RESERVE_NOT_MET,
 		SOLD
 	}
+	
+	/* Constructor
+	 * Takes in vehicle
+	 */
+	public VehicleListing(String vehicle) {
+		this.vehicle = vehicle;
+	}
+	
+	/* Constructor
+	 * No parameter
+	 */
+	public VehicleListing () {
+		
+	}
+	
 	
 	public String Url(){
 	    return (this.restServer+restCall);
@@ -102,11 +117,11 @@ public class VehicleListing extends Vehicle {
 			 }
 	  }
 
-	public Vehicle getVehicle() {
+	public String getVehicle() {
 		return vehicle;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
+	public void setVehicle(String vehicle) {
 		this.vehicle = vehicle;
 	}
 

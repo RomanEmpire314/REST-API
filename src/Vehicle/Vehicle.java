@@ -15,6 +15,7 @@ public class Vehicle extends CarAuctionRESTCall {
 	private String $class="org.acme.vehicle.auction.Vehicle";
 	private String vin;
 	private String owner;
+	
 	public String Url() {
 		return (this.restServer+restCall);
 	}
