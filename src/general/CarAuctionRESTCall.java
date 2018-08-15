@@ -1,14 +1,6 @@
 package general;
 
 import java.net.URL;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import member.Member;
-
 import java.net.HttpURLConnection;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -27,7 +19,6 @@ public class CarAuctionRESTCall
 	
 	public class Config
 	{
-		@JsonIgnore
 	  public Config()
 	  {
 	    config= new Properties();

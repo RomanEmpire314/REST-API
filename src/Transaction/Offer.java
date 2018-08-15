@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import member.Member;
+
 
 public class Offer extends Transaction {
 	private final String restCall=file.getProperty("Offer");
@@ -94,11 +94,4 @@ public class Offer extends Transaction {
 		}
 		  return ownerJson;
 	  }
-	public static void main (String[]args) {
-		Offer offer= new Offer();
-		offer.setBidPrice(12324.23);
-		offer.setListing("resource:org.acme.vehicle.auction.VehicleListing#9480");
-		offer.setMember("resource:org.acme.vehicle.auction.Member#abc");
-		offer.create(offer.genJson());
-	}
 }
