@@ -94,14 +94,14 @@ public class AdminGUI {
 		
 		frmAdmin = new JFrame();
 		frmAdmin.setTitle("Admin Window");
-		frmAdmin.setBounds(100, 100, 635, 400);
+		frmAdmin.setBounds(100, 100, 663, 400);
 		frmAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAdmin.setLocationRelativeTo(null);
 		frmAdmin.setContentPane(contentPane);
 		
 		//IMPORTANT: get JSON data from server, mapping them into ArrayLists of objects
 		carsArrayList = mapVehicleObject();
-	//	listingsArrayList = mapListingObject();
+		listingsArrayList = mapListingObject();
 		membersArrayList = mapMemberObject();
 		//IMPORTANT
 		
@@ -161,11 +161,11 @@ public class AdminGUI {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(73)
 					.addComponent(lblVehicle)
-					.addGap(125)
+					.addPreferredGap(ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
 					.addComponent(lblListed)
 					.addGap(125)
-					.addComponent(lblMember, GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-					.addGap(85))
+					.addComponent(lblMember)
+					.addGap(97))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -180,86 +180,83 @@ public class AdminGUI {
 								.addComponent(btnList, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(button, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(button, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnDelete_1, GroupLayout.PREFERRED_SIZE, 113, Short.MAX_VALUE)))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnDelete_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(1)
 							.addComponent(scrollPaneListing, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(scrollPaneMember, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(scrollPaneMember, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(button_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(button_3, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(button_3, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
-							.addGap(10))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(48)
-							.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())))
+									.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(53)
+									.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addComponent(separator, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblListed, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblVehicle)
 										.addComponent(lblMember, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblVehicle))
+										.addComponent(lblListed, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-											.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-											.addComponent(scrollPaneMember, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
-										.addComponent(scrollPaneVehicle, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
+										.addComponent(scrollPaneMember, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+										.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+										.addComponent(scrollPaneVehicle, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPane.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 													.addComponent(btnNewVehicle)
 													.addComponent(btnList))
 												.addComponent(btnNewButton))
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-													.addComponent(btnEdit)
-													.addComponent(btnDelete))
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-													.addComponent(button)
-													.addComponent(btnDelete_1))))
+											.addPreferredGap(ComponentPlacement.RELATED))
 										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGap(18)
-											.addComponent(button_1)))))
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(button_1)
+											.addPreferredGap(ComponentPlacement.RELATED)))
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+											.addComponent(btnEdit)
+											.addComponent(btnDelete))
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+											.addComponent(button)
+											.addComponent(btnDelete_1)
+											.addComponent(button_3)
+											.addComponent(button_2)))))
 							.addGap(14))
-						.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(button_2)
-								.addComponent(button_3))
-							.addContainerGap())))
+						.addComponent(separator_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)))
 		);
 		
 		memberJList = new JList<String>(modeling(membersArrayList));
 		scrollPaneMember.setViewportView(memberJList);
 		
-	//	listingJList = new JList<String>(modeling(listingsArrayList));
+		listingJList = new JList<String>(modeling(listingsArrayList));
 		scrollPaneListing.setViewportView(listingJList);
 		
 		vehicleJList = new JList<String>(modeling(carsArrayList));
@@ -337,6 +334,7 @@ public class AdminGUI {
 		String jsonFetched = currentListing.get();
 	    ObjectMapper mapper = new ObjectMapper();
 		try {
+			System.out.println(jsonFetched);
 			//map JSON string into VehicleListing object ArrayList
 			ArrayList<VehicleListing> listing = mapper.readValue(jsonFetched, new TypeReference<ArrayList<VehicleListing>>(){});
 			return listing;
