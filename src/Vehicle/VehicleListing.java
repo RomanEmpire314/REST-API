@@ -13,17 +13,32 @@ import general.CarAuctionRESTCall;
 public class VehicleListing extends Vehicle {
 	private final String restCall=file.getProperty("VehicleListing");
 	private String $class="org.acme.vehicle.auction.VehicleListing";
-	private String listingID;
+	private String listingId;
 	private double reservePrice;
 	private String description;
-	private List<Offer> offer;
+	private List<Offer> offers;
 	private ListingState state= ListingState.FOR_SALE;
-	private Vehicle vehicle;
+	private String vehicle;
 	enum ListingState{
 		FOR_SALE,
 		RESERVE_NOT_MET,
 		SOLD
 	}
+	
+	/* Constructor
+	 * Takes in vehicle
+	 */
+	public VehicleListing(String vehicle) {
+		this.vehicle = vehicle;
+	}
+	
+	/* Constructor
+	 * No parameter
+	 */
+	public VehicleListing () {
+		
+	}
+	
 	
 	public String Url(){
 	    return (this.restServer+restCall);
@@ -37,12 +52,12 @@ public class VehicleListing extends Vehicle {
 		this.$class = $class;
 	}
 
-	public String getListingID() {
-		return listingID;
+	public String getListingId() {
+		return listingId;
 	}
 
-	public void setListingID(String listingID) {
-		this.listingID = listingID;
+	public void setListingId(String listingId) {
+		this.listingId = listingId;
 	}
 
 	public double getReservePrice() {
@@ -84,7 +99,7 @@ public class VehicleListing extends Vehicle {
 	 
 	 public void getCopy(VehicleListing listing)
 	    {
-	        this.listingID= listing.getListingID();
+	        this.listingId= listing.getListingId();
 	        this.description=listing.getDescription();
 	        this.reservePrice=listing.getReservePrice();
 	        this.state=listing.getState();
@@ -105,20 +120,20 @@ public class VehicleListing extends Vehicle {
 			 }
 	  }
 
-	public Vehicle getVehicle() {
+	public String getVehicle() {
 		return vehicle;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
+	public void setVehicle(String vehicle) {
 		this.vehicle = vehicle;
 	}
 
-	public List<Offer> getOffer() {
-		return offer;
+	public List<Offer> getOffers() {
+		return offers;
 	}
 
-	public void setOffer(List<Offer> offer) {
-		this.offer = offer;
+	public void setOffers(List<Offer> offers) {
+		this.offers = offers;
 	}
 
 }

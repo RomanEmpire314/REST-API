@@ -1,9 +1,9 @@
-/general/
-/member/
-<<<<<<< HEAD
-/others/
-=======
 /Vehicle/
 /general/
+<<<<<<< HEAD
 >>>>>>> 29abdd551b46b6e4c743d9405f41e6b6981ef588
 /Transaction/
+=======
+>>>>>>> a42b5275c48e1c763483b05eb6aff8fa0336c49f
+/member/
+/others/
