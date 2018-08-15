@@ -256,7 +256,7 @@ public class AdminGUI {
 		memberJList = new JList<String>(modeling(membersArrayList));
 		scrollPaneMember.setViewportView(memberJList);
 		
-		listingJList = new JList<String>(modeling(listingsArrayList));
+	//	listingJList = new JList<String>(modeling(listingsArrayList));
 		scrollPaneListing.setViewportView(listingJList);
 		
 		vehicleJList = new JList<String>(modeling(carsArrayList));
@@ -319,8 +319,10 @@ public class AdminGUI {
 		String jsonFetched = currentVehicle.get();
 	    ObjectMapper mapper = new ObjectMapper();
 		try {
+
 			//map JSON string into Vehicle object ArrayList
 			ArrayList<Vehicle> listVehicle = mapper.readValue(jsonFetched, new TypeReference<ArrayList<Vehicle>>(){});
+	//		System.out.println(listVehicle);
 			return listVehicle;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -334,7 +336,6 @@ public class AdminGUI {
 		String jsonFetched = currentListing.get();
 	    ObjectMapper mapper = new ObjectMapper();
 		try {
-			System.out.println(jsonFetched);
 			//map JSON string into VehicleListing object ArrayList
 			ArrayList<VehicleListing> listing = mapper.readValue(jsonFetched, new TypeReference<ArrayList<VehicleListing>>(){});
 			return listing;
