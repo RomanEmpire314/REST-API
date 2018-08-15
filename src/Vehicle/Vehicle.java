@@ -16,6 +16,14 @@ public class Vehicle extends CarAuctionRESTCall {
 	private String vin;
 	private String owner;
 	
+	public Vehicle(String vin, String owner) {
+		this.vin = vin;
+		this.owner = owner;
+	}
+	
+	public Vehicle() {
+	}
+
 	public String Url() {
 		return (this.restServer+restCall);
 	}

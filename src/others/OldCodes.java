@@ -1,5 +1,14 @@
 package others;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+import Vehicle.Vehicle;
+
 /*
 
 GET
@@ -320,5 +329,35 @@ public class PrivateOwner extends Person
 	 System.out.println(owner.toString());
   }
 } 
+
+btnEditVehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Vehicle editVehicle = carsArrayList.get(vehicleJList.getSelectedIndex());
+				JTextField owner = new JTextField();
+				Object [] message = {
+						"Owner:", owner,
+				};																				
+				int option = JOptionPane.showConfirmDialog(null, message, "Editor", JOptionPane.OK_CANCEL_OPTION);
+				if (option == JOptionPane.OK_OPTION) {											
+					
+					
+					if (owner.getText().equals("")) {
+						owner.setText(editVehicle.getOwner());
+					}
+					
+					editVehicle.setOwner(owner.getText());
+					System.out.println(editVehicle.edit(editVehicle.getVin(), editVehicle.genJson()));
+					System.out.println(editVehicle);
+					
+			//		carsArrayList.set(vehicleJList.getSelectedIndex(), editVehicle);
+					carsArrayList = mapVehicleObject();
+					vehicleJList = new JList<String>(modeling(carsArrayList));
+					scrollPaneVehicle.setViewportView(vehicleJList);
+					JOptionPane.showMessageDialog(null, "Owner changed successfully into " + editVehicle.getOwner(),
+							"Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+			}
+		});
 
 */
