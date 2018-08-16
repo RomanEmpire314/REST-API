@@ -65,6 +65,7 @@ public class AdminGUI {
 	private JButton btnDeleteMember;
 	private JButton btnEditMember;
 	private JScrollPane scrollPaneListing;
+	private JButton btnEditListing;
 
 	/**
 	 * Launch the application.
@@ -143,11 +144,15 @@ public class AdminGUI {
 		
 		JButton btnNewButton = new JButton("AUCTION");
 		
-		JButton button = new JButton("Edit");
+		btnEditListing = new JButton("Edit");
+		btnEditListing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
 		JSeparator separator_1 = new JSeparator();
 		
-		JButton btnDelete_1 = new JButton("Remove Listing");
+		JButton btnDeleteLíting = new JButton("Remove Listing");
 		
 		btnNewMember = new JButton("Create New");
 		
@@ -186,9 +191,9 @@ public class AdminGUI {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(button, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnEditListing, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnDelete_1, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+							.addComponent(btnDeleteLíting, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
 						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(1)
@@ -244,8 +249,8 @@ public class AdminGUI {
 											.addPreferredGap(ComponentPlacement.RELATED)))
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-											.addComponent(button)
-											.addComponent(btnDelete_1)
+											.addComponent(btnEditListing)
+											.addComponent(btnDeleteLíting)
 											.addComponent(btnDeleteMember)
 											.addComponent(btnEditMember))
 										.addGroup(gl_contentPane.createSequentialGroup()
@@ -257,12 +262,15 @@ public class AdminGUI {
 		
 	//	lmVehicle = modeling(carsArrayList);
 		vehicleJList = new JList<String>(modeling(carsArrayList));
+		vehicleJList.setSelectedIndex(0);
 		scrollPaneVehicle.setViewportView(vehicleJList);
 		
 		memberJList = new JList<String>(modeling(membersArrayList));
+		memberJList.setSelectedIndex(0);
 		scrollPaneMember.setViewportView(memberJList);
 		
 		listingJList = new JList<String>(modeling(listingsArrayList));
+		listingJList.setSelectedIndex(0);
 		scrollPaneListing.setViewportView(listingJList);
 		
 		
