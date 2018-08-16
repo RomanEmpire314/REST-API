@@ -14,7 +14,7 @@ public class Vehicle extends CarAuctionRESTCall {
 	private final String restCall=file.getProperty("Vehicle");
 	private String $class="org.acme.vehicle.auction.Vehicle";
 	private String vin;
-	private String owner;
+	private String owner="resource:"+new Member().get$class();
 	
 	public Vehicle(String vin, String owner) {
 		this.vin = vin;
@@ -46,6 +46,13 @@ public class Vehicle extends CarAuctionRESTCall {
 	}
 	public void setOwner(String owner) {
 		this.owner = owner;
+	}
+	public boolean setMemberByID(String id)
+	{
+		boolean valid=false;
+		if((valid=new Member().check(id)))
+		    this.owner+="#"+id;
+		return valid;
 	}
 	
 	 public String genJson()
