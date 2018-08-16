@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import Transaction.Offer;
-import general.CarAuctionRESTCall;
 
 public class VehicleListing extends Vehicle {
 	private final String restCall=file.getProperty("VehicleListing");
@@ -18,7 +17,7 @@ public class VehicleListing extends Vehicle {
 	private String description;
 	private List<Offer> offers;
 	private ListingState state= ListingState.FOR_SALE;
-	private String vehicle;
+	private String vehicle="resource:"+new Vehicle().get$class();
 	enum ListingState{
 		FOR_SALE,
 		RESERVE_NOT_MET,
@@ -126,6 +125,14 @@ public class VehicleListing extends Vehicle {
 
 	public void setVehicle(String vehicle) {
 		this.vehicle = vehicle;
+	}
+	
+	public boolean setVehicleByID(String id)
+	{
+		boolean valid=false;
+		if((valid=new Vehicle().check(id)))
+		    this.vehicle+="#"+id;
+		return valid;
 	}
 
 	public List<Offer> getOffers() {

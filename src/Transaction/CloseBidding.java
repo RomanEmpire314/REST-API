@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import Vehicle.VehicleListing;
+
 public class CloseBidding extends Transaction {
 private final String restCall= file.getProperty("CloseBidding");
 private String listing;
@@ -19,7 +21,13 @@ public String getListing() {
 public void setListing(String listing) {
 	this.listing = listing;
 }
-
+public boolean setListingByID(String id)
+{
+	boolean valid=false;
+	if((valid=new VehicleListing().check(id)))
+	    this.listing+="#"+id;
+	return valid;
+}
 public void getCopyOf(CloseBidding close) {
 	this.listing=close.getListing();
 }

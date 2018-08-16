@@ -7,14 +7,17 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import Vehicle.VehicleListing;
+import member.Member;
+
 
 
 public class Offer extends Transaction {
 	private final String restCall=file.getProperty("Offer");
 	private String $class="org.acme.vehicle.auction.Offer";
 	private double bidPrice;
-	private String listing;
-	private String member;
+	private String listing="resource:"+new VehicleListing().get$class();
+	private String member="resource:"+new Member().get$class();
 	private Date timestamp;
 	
 	public String Url(){
@@ -44,6 +47,14 @@ public class Offer extends Transaction {
 	public void setListing(String listing) {
 		this.listing = listing;
 	}
+	
+	public boolean setListingByID(String id)
+	{
+		boolean valid=false;
+		if((valid=new VehicleListing().check(id)))
+		    this.listing+="#"+id;
+		return valid;
+	}
 
 	public String getMember() {
 		return this.member;
@@ -51,6 +62,14 @@ public class Offer extends Transaction {
 
 	public void setMember(String member) {
 		this.member = member;
+	}
+	
+	public boolean setMemberByID(String id)
+	{
+		boolean valid=false;
+		if((valid=new VehicleListing().check(id)))
+		    this.member+="#"+id;
+		return valid;
 	}
 
 	public Date getTimestamp() {
