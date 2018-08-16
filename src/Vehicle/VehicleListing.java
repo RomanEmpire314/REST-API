@@ -3,6 +3,7 @@ package Vehicle;
 import java.io.IOException;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -10,15 +11,17 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import Transaction.Offer;
 import general.CarAuctionRESTCall;
 
-public class VehicleListing extends Vehicle {
+public class VehicleListing extends CarAuctionRESTCall {
 	private final String restCall=file.getProperty("VehicleListing");
 	private String $class="org.acme.vehicle.auction.VehicleListing";
 	private String listingId;
 	private double reservePrice;
 	private String description;
 	private List<Offer> offers;
-	private ListingState state= ListingState.FOR_SALE;
+	public ListingState state= ListingState.FOR_SALE;
 	private String vehicle;
+	@JsonIgnore
+	private String vehicleID;
 	enum ListingState{
 		FOR_SALE,
 		RESERVE_NOT_MET,
@@ -28,15 +31,20 @@ public class VehicleListing extends Vehicle {
 	/* Constructor
 	 * Takes in vehicle
 	 */
-	public VehicleListing(String vehicle) {
-		this.vehicle = vehicle;
+	public VehicleListing(Vehicle vehicle, String listingID, double reservePrice, String description) {
+		String vehicleAddress = "resource:" + vehicle.get$class() + "#" + vehicle.getVin();
+		this.vehicle = vehicleAddress;
+		this.vehicleID = vehicle.getVin();
+		this.listingId = listingID;
+		this.reservePrice = reservePrice;
+		this.description = description;
+		System.out.println(this.toString());
 	}
 	
 	/* Constructor
 	 * No parameter
 	 */
 	public VehicleListing () {
-		
 	}
 	
 	
@@ -103,6 +111,11 @@ public class VehicleListing extends Vehicle {
 	        this.description=listing.getDescription();
 	        this.reservePrice=listing.getReservePrice();
 	        this.state=listing.getState();
+	      /*
+	        String idListing = listing.getListingId();
+	        this.vehicleID = idListing.substring(idListing.indexOf("#") + 1, idListing.length() );
+	        System.out.println(vehicleID);
+	        */
 	    }
 	 
 	 public void jsonMap(String vehicleJson) 
@@ -134,6 +147,19 @@ public class VehicleListing extends Vehicle {
 
 	public void setOffers(List<Offer> offers) {
 		this.offers = offers;
+	}
+	
+	public String toString() {
+		return "Listing ID: " + this.listingId + "; \nVehicle vin: " +
+				this.vehicle.substring(vehicle.indexOf("#") + 1, vehicle.length()) + "; \nState: " + this.state;
+	}
+
+	public String getVehicleID() {
+		return vehicleID;
+	}
+
+	public void setVehicleID(String vehicleID) {
+		this.vehicleID = vehicleID;
 	}
 
 }

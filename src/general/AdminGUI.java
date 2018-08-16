@@ -64,6 +64,7 @@ public class AdminGUI {
 	private JScrollPane scrollPaneMember;
 	private JButton btnDeleteMember;
 	private JButton btnEditMember;
+	private JScrollPane scrollPaneListing;
 
 	/**
 	 * Launch the application.
@@ -112,6 +113,7 @@ public class AdminGUI {
 		listingsArrayList = mapListingObject();
 		membersArrayList = mapMemberObject();
 		//IMPORTANT
+		System.out.println(listingsArrayList);
 		
 		scrollPaneVehicle = new JScrollPane();
 		scrollPaneVehicle.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -119,7 +121,7 @@ public class AdminGUI {
 		JLabel lblVehicle = new JLabel("Vehicle");
 		lblVehicle.setFont(new Font("Impact", Font.PLAIN, 17));
 		
-		JScrollPane scrollPaneListing = new JScrollPane();
+		scrollPaneListing = new JScrollPane();
 		scrollPaneListing.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		scrollPaneMember = new JScrollPane();
@@ -260,7 +262,7 @@ public class AdminGUI {
 		memberJList = new JList<String>(modeling(membersArrayList));
 		scrollPaneMember.setViewportView(memberJList);
 		
-	//	listingJList = new JList<String>(modeling(listingsArrayList));
+		listingJList = new JList<String>(modeling(listingsArrayList));
 		scrollPaneListing.setViewportView(listingJList);
 		
 		
@@ -360,6 +362,56 @@ public class AdminGUI {
 		
 		btnAddListing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Vehicle vehicle = carsArrayList.get(vehicleJList.getSelectedIndex());				
+				JTextField listingId = new JTextField();
+				JTextField reservePrice = new JTextField();
+				JTextField description = new JTextField();
+
+				Object [] message = {
+						"Listing ID:", listingId,
+						"Car's reserved price:", reservePrice,
+						"Car's description", description
+				};
+				
+				int option;
+				do {
+					//User input
+					option = JOptionPane.showConfirmDialog(null, message, "Input", JOptionPane.OK_CANCEL_OPTION);
+					if (option == JOptionPane.OK_OPTION) {
+						
+						//Input validation
+						if (listingId.getText().equals("") || reservePrice.getText().equals("") || description.getText().equals("") ) {
+							JOptionPane.showMessageDialog(null, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+						} else {
+							// Input validation successful, creating new listing object
+							VehicleListing listing = new VehicleListing(vehicle, listingId.getText(), Double.parseDouble(reservePrice.getText())
+									, description.getText() );
+							String resultJSON = listing.genJson();
+							if (listing.check(listing.getListingId())) { //check for existing vehicles
+								JOptionPane.showMessageDialog(null, "Listing already existed!", "Error", JOptionPane.ERROR_MESSAGE);
+							} else {
+								if (new Vehicle().check(listing.getVehicleID())) { //check for duplicates listings
+									JOptionPane.showMessageDialog(null, "Can't create 2 listings for 1 vehicle",
+											"Error", JOptionPane.ERROR_MESSAGE);
+								} else {
+									//create new listing
+									if (listing.create(resultJSON)) {
+										JOptionPane.showMessageDialog(null, "Create listing successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+										listingsArrayList = mapListingObject();
+									} else {
+										JOptionPane.showMessageDialog(null, "Listing creation failed", "Error", JOptionPane.ERROR_MESSAGE);
+									}
+								}
+							}
+						}
+						
+					} // end of OK_OPTION
+					
+				} while ( (listingId.getText().equals("") || reservePrice.getText().equals("") || description.getText().equals("") )
+						 && option == JOptionPane.OK_OPTION );
+				//refresh JList
+				listingJList = new JList<String>(modeling(listingsArrayList));
+				scrollPaneListing.setViewportView(listingJList);
 				
 			}
 		}); //end of ActionListener
