@@ -43,10 +43,10 @@ public class Member extends Person
       return email;
   }
   @Override
-  public String toString()
-  {
-      return ("Name: "+this.getFirstName()+" "+this.getLastName()+"\nEmail: "+email + "\nBalance: $" + balance);
+  public String toString() {
+      return ("Name: "+this.getFirstName()+" "+this.getLastName()+"; \nEmail: "+email + "; \nBalance: $" + balance);
   }
+  
   public void jsonMap(String ownerJson) 
   {
 		 try {

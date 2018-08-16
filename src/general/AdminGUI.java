@@ -56,9 +56,14 @@ public class AdminGUI {
 	private JList<String> listingJList;
 	private JList<String> memberJList;
 	private JButton btnNewVehicle;
-	private DefaultListModel<String> lmVehicle;
+//	private DefaultListModel<String> lmVehicle;
+	private JButton btnDeleteVehicle;
+	private JButton btnAddListing;
+	private JButton btnNewMember;
 	private JScrollPane scrollPaneVehicle;
-	private JButton btnDelete;
+	private JScrollPane scrollPaneMember;
+	private JButton btnDeleteMember;
+	private JButton btnEditMember;
 
 	/**
 	 * Launch the application.
@@ -110,18 +115,15 @@ public class AdminGUI {
 		
 		scrollPaneVehicle = new JScrollPane();
 		scrollPaneVehicle.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPaneVehicle.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		JLabel lblVehicle = new JLabel("Vehicle");
 		lblVehicle.setFont(new Font("Impact", Font.PLAIN, 17));
 		
 		JScrollPane scrollPaneListing = new JScrollPane();
 		scrollPaneListing.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPaneListing.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		JScrollPane scrollPaneMember = new JScrollPane();
+		scrollPaneMember = new JScrollPane();
 		scrollPaneMember.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPaneMember.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		JLabel lblListed = new JLabel("Listed Vehicle");
 		lblListed.setFont(new Font("Impact", Font.PLAIN, 17));
@@ -130,15 +132,9 @@ public class AdminGUI {
 		lblMember.setFont(new Font("Impact", Font.PLAIN, 17));
 		
 		btnNewVehicle = new JButton("Create New");
+		btnDeleteVehicle = new JButton("Delete");
+		btnAddListing = new JButton("Add to Listing");
 		
-		
-		btnDelete = new JButton("Delete");
-		btnDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
-		JButton btnList = new JButton("Add to Listing");
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
@@ -151,11 +147,14 @@ public class AdminGUI {
 		
 		JButton btnDelete_1 = new JButton("Remove Listing");
 		
-		JButton button_1 = new JButton("Create New");
+		btnNewMember = new JButton("Create New");
 		
-		JButton button_2 = new JButton("Edit");
 		
-		JButton button_3 = new JButton("Delete");
+		btnEditMember = new JButton("Edit");
+		
+		
+		btnDeleteMember = new JButton("Delete");
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -176,40 +175,39 @@ public class AdminGUI {
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(btnNewVehicle)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnList))))
+									.addComponent(btnAddListing))))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(55)
-							.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnDeleteVehicle, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(button, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnDelete_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnDelete_1, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(1)
-							.addComponent(scrollPaneListing, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
+					.addGap(13)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(scrollPaneMember, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+							.addComponent(scrollPaneMember, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
 							.addContainerGap())
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(button_3, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+									.addComponent(btnDeleteMember, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnEditMember, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
 									.addContainerGap())
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(53)
-									.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap())))))
+								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+									.addComponent(btnNewMember, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+									.addGap(45))))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -235,29 +233,28 @@ public class AdminGUI {
 											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 													.addComponent(btnNewVehicle)
-													.addComponent(btnList))
+													.addComponent(btnAddListing))
 												.addComponent(btnNewButton))
 											.addPreferredGap(ComponentPlacement.RELATED))
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addComponent(button_1)
+											.addComponent(btnNewMember)
 											.addPreferredGap(ComponentPlacement.RELATED)))
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 											.addComponent(button)
 											.addComponent(btnDelete_1)
-											.addComponent(button_3)
-											.addComponent(button_2))
+											.addComponent(btnDeleteMember)
+											.addComponent(btnEditMember))
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(btnDelete)))))
+											.addComponent(btnDeleteVehicle)))))
 							.addGap(14))
 						.addComponent(separator_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)))
 		);
 		
-		lmVehicle = modeling(carsArrayList);
-		vehicleJList = new JList<String>(lmVehicle);
-		
+	//	lmVehicle = modeling(carsArrayList);
+		vehicleJList = new JList<String>(modeling(carsArrayList));
 		scrollPaneVehicle.setViewportView(vehicleJList);
 		
 		memberJList = new JList<String>(modeling(membersArrayList));
@@ -289,6 +286,7 @@ public class AdminGUI {
 	}
 	
 	private void methodCall() {
+		
 		btnNewVehicle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JTextField vin = new JTextField();
@@ -308,14 +306,14 @@ public class AdminGUI {
 						// Input validation successful, creating new vehicle object
 						Vehicle newVehicle = new Vehicle(vin.getText(), owner.getText());
 						String newVehicleJSON = newVehicle.genJson();
-						if (newVehicle.check(vin.getText())) {
+						if (newVehicle.check(vin.getText())) { //check for existing vehicles
 							JOptionPane.showMessageDialog(null, "Vehicle already existed!", "Error", JOptionPane.ERROR_MESSAGE);
 						} else {
 							if (newVehicle.create(newVehicleJSON)) {
 								//create new member
 								JOptionPane.showMessageDialog(null, "Create account successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
 								carsArrayList = mapVehicleObject();
-								lmVehicle = modeling(carsArrayList);
+					//			lmVehicle = modeling(carsArrayList);
 							} else {
 								//failed for any other reason
 								JOptionPane.showMessageDialog(null, "Account creation failed", "Error", JOptionPane.ERROR_MESSAGE);
@@ -326,13 +324,167 @@ public class AdminGUI {
 					
 				} //end of OK_OPTION
 								
-				
-				vehicleJList = new JList<String>(lmVehicle);
+				//update JList
+				vehicleJList = new JList<String>(modeling(carsArrayList));
 				scrollPaneVehicle.setViewportView(vehicleJList);
-				
 			}
 		}); //end of ActionListener
 
+		
+		btnDeleteVehicle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Vehicle deleteVehicle = carsArrayList.get(vehicleJList.getSelectedIndex());
+				int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete vehicle " + deleteVehicle.getVin() + "?" 
+				, "Remove Vehicle", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+				
+				if (option == JOptionPane.OK_OPTION) {
+					if (deleteVehicle.delete(deleteVehicle.getVin())) {
+						JOptionPane.showMessageDialog(null, "Vehicle ID: " + deleteVehicle.getVin() + " is removed successfully",
+								"Delete Success", JOptionPane.INFORMATION_MESSAGE);
+						//update ArrayList
+						carsArrayList = mapVehicleObject();
+				//		lmVehicle = modeling(carsArrayList);
+					} else {
+						JOptionPane.showMessageDialog(null, "Delete failed!", "Failed", JOptionPane.ERROR_MESSAGE);
+					}
+					//update JList
+					vehicleJList = new JList<String>(modeling(carsArrayList));
+					scrollPaneVehicle.setViewportView(vehicleJList);
+				}
+				
+				
+			}
+		}); //end of ActionListener
+		
+		
+		btnAddListing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		}); //end of ActionListener
+		
+		
+		btnNewMember.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField emailCreate = new JTextField();
+				JTextField firstCreate = new JTextField();
+				JTextField lastCreate = new JTextField();
+				JTextField balanceCreate = new JTextField();
+				
+				Object [] message = {
+						"Email:", emailCreate,
+						"First name:", firstCreate,
+						"Last name:", lastCreate,
+						"Balance", balanceCreate
+				};
+				
+				int option;
+				do {
+					//User input
+					option = JOptionPane.showConfirmDialog(null, message, "Input", JOptionPane.OK_CANCEL_OPTION);
+					if (option == JOptionPane.OK_OPTION) {
+						
+						//Input validation
+						if (firstCreate.getText().equals("") || lastCreate.getText().equals("") ||
+								balanceCreate.getText().equals("") || emailCreate.getText().equals("") ) {
+							JOptionPane.showMessageDialog(null, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+						} else {
+							// Input validation successful, creating new member object
+							Member newMember = new Member(firstCreate.getText(), lastCreate.getText(),
+									Double.parseDouble(balanceCreate.getText()), emailCreate.getText());
+							String result = newMember.genJson();
+							if (newMember.check(newMember.getEmail())) { //check for existing vehicles
+								JOptionPane.showMessageDialog(null, "Vehicle already existed!", "Error", JOptionPane.ERROR_MESSAGE);
+							} else {
+								//create new member
+								if (newMember.create(result)) {
+									JOptionPane.showMessageDialog(null, "Create account successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+									membersArrayList = mapMemberObject();
+								} else {
+									JOptionPane.showMessageDialog(null, "Account creation failed", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+							}
+						}
+						
+					} // end of OK_OPTION
+					
+				} while ( (firstCreate.getText().equals("") || lastCreate.getText().equals("") ||
+						balanceCreate.getText().equals("") || emailCreate.getText().equals("") ) && option == JOptionPane.OK_OPTION );
+				memberJList = new JList<String>(modeling(membersArrayList));
+				scrollPaneMember.setViewportView(memberJList);			
+			}
+		}); //end of ActionListener
+		
+		btnDeleteMember.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Member deleteMember = membersArrayList.get(memberJList.getSelectedIndex());
+				int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete user: " + deleteMember.getEmail() + "?" 
+				, "Remove Member", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+				
+				if (option == JOptionPane.OK_OPTION) {
+					if (deleteMember.delete(deleteMember.getEmail())) {
+						JOptionPane.showMessageDialog(null, "Member account " + deleteMember.getEmail() + " is removed successfully",
+								"Delete Success", JOptionPane.INFORMATION_MESSAGE);
+						//update ArrayList
+						membersArrayList = mapMemberObject();
+				//		lmVehicle = modeling(carsArrayList);
+					} else {
+						JOptionPane.showMessageDialog(null, "Delete failed!", "Failed", JOptionPane.ERROR_MESSAGE);
+					}
+					//update JList
+					memberJList = new JList<String>(modeling(membersArrayList));
+					scrollPaneMember.setViewportView(memberJList);
+				}
+			}
+		}); //end of ActionListener
+		
+		btnEditMember.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField editFirst = new JTextField();
+				JTextField editLast = new JTextField();
+				JTextField editBalance = new JTextField();
+				Object [] message = {
+						"First name:", editFirst,
+						"Last name:", editLast,
+						"Balance", editBalance
+				};																				
+				int option = JOptionPane.showConfirmDialog(null, message, "Editor", JOptionPane.OK_CANCEL_OPTION);
+				if (option == JOptionPane.OK_OPTION) {			
+					Member editMember = membersArrayList.get(memberJList.getSelectedIndex());
+					
+					String first = editFirst.getText();
+					String last = editLast.getText();
+					double balanceD;
+					
+					if (first.equals("")) {
+						first = editMember.getFirstName();
+					}
+					if (last.equals("")) {
+						last = editMember.getLastName();
+					}
+					if (editBalance.getText().equals("")) {
+						balanceD = editMember.getBalance();
+					} else {
+						balanceD = Double.parseDouble(editBalance.getText());
+					}
+					
+					editMember.setName(first, last);
+					editMember.setBalance(balanceD);
+					editMember.edit(editMember.getEmail(), editMember.genJson());
+					
+					//update ArrayList
+					membersArrayList = mapMemberObject();
+					
+					//update JList and display
+					memberJList = new JList<String>(modeling(membersArrayList));
+					scrollPaneMember.setViewportView(memberJList);
+					JOptionPane.showMessageDialog(null, "User changed changed successfully into\n" + editMember.toString(),
+							"Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		}); //end of ActionListener
 		
 		
 		
