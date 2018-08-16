@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import Transaction.Offer;
+import general.CarAuctionRESTCall;
 
 public class VehicleListing extends CarAuctionRESTCall {
 	private final String restCall=file.getProperty("VehicleListing");
