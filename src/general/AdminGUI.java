@@ -114,7 +114,6 @@ public class AdminGUI {
 		listingsArrayList = mapListingObject();
 		membersArrayList = mapMemberObject();
 		//IMPORTANT
-		System.out.println(listingsArrayList);
 		
 		scrollPaneVehicle = new JScrollPane();
 		scrollPaneVehicle.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -145,14 +144,11 @@ public class AdminGUI {
 		JButton btnNewButton = new JButton("AUCTION");
 		
 		btnEditListing = new JButton("Edit");
-		btnEditListing.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		
 		
 		JSeparator separator_1 = new JSeparator();
 		
-		JButton btnDeleteLíting = new JButton("Remove Listing");
+		JButton btnDeleteListing = new JButton("Remove Listing");
 		
 		btnNewMember = new JButton("Create New");
 		
@@ -193,7 +189,7 @@ public class AdminGUI {
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(btnEditListing, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnDeleteLíting, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+							.addComponent(btnDeleteListing, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
 						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(1)
@@ -250,7 +246,7 @@ public class AdminGUI {
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 											.addComponent(btnEditListing)
-											.addComponent(btnDeleteLíting)
+											.addComponent(btnDeleteListing)
 											.addComponent(btnDeleteMember)
 											.addComponent(btnEditMember))
 										.addGroup(gl_contentPane.createSequentialGroup()
@@ -424,6 +420,55 @@ public class AdminGUI {
 			}
 		}); //end of ActionListener
 		
+		btnEditListing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JTextField reservePrice = new JTextField();
+				JTextField description = new JTextField();
+				JTextField editBalance = new JTextField();
+				Object [] message = {
+						"First name:", editFirst,
+						"Last name:", editLast,
+						"Balance", editBalance
+				};																				
+				int option = JOptionPane.showConfirmDialog(null, message, "Editor", JOptionPane.OK_CANCEL_OPTION);
+				if (option == JOptionPane.OK_OPTION) {			
+					Member editMember = membersArrayList.get(memberJList.getSelectedIndex());
+					
+					String first = editFirst.getText();
+					String last = editLast.getText();
+					double balanceD;
+					
+					if (first.equals("")) {
+						first = editMember.getFirstName();
+					}
+					if (last.equals("")) {
+						last = editMember.getLastName();
+					}
+					if (editBalance.getText().equals("")) {
+						balanceD = editMember.getBalance();
+					} else {
+						balanceD = Double.parseDouble(editBalance.getText());
+					}
+					
+					editMember.setName(first, last);
+					editMember.setBalance(balanceD);
+					editMember.edit(editMember.getEmail(), editMember.genJson());
+					
+					//update ArrayList
+					membersArrayList = mapMemberObject();
+					
+					//update JList and display
+					memberJList = new JList<String>(modeling(membersArrayList));
+					scrollPaneMember.setViewportView(memberJList);
+					JOptionPane.showMessageDialog(null, "User changed changed successfully into\n" + editMember.toString(),
+							"Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		}); //end of ActionListener
+		
+		
+		
 		
 		btnNewMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -559,9 +604,7 @@ public class AdminGUI {
 		try {
 
 			//map JSON string into Vehicle object ArrayList
-			ArrayList<Vehicle> listVehicle = mapper.readValue(jsonFetched, new TypeReference<ArrayList<Vehicle>>(){});
-	//		System.out.println(listVehicle);
-			return listVehicle;
+			ArrayList<Vehicle> listVehicle = mapper.readValue(jsonFetched, new TypeReference<ArrayList<Vehicle>>(){});			return listVehicle;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

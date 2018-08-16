@@ -18,7 +18,7 @@ public class VehicleListing extends CarAuctionRESTCall {
 	private double reservePrice;
 	private String description;
 	private List<Offer> offers;
-	public ListingState state= ListingState.FOR_SALE;
+	private ListingState state= ListingState.FOR_SALE;
 	private String vehicle;
 	@JsonIgnore
 	private String vehicleID;
