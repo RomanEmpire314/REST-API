@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import Transaction.Offer;
+
 public class UserAuctionGUI {
 
 	private JFrame frame;
@@ -29,6 +31,13 @@ public class UserAuctionGUI {
 	 */
 	public UserAuctionGUI() {
 		initialize();
+	}
+	
+	public void makeOffer(String id, double bid) {
+		Offer offer= new Offer();
+		offer.setListingByID(id);
+		offer.setBidPrice(bid);
+		offer.create(offer.genJson());
 	}
 
 	/**
