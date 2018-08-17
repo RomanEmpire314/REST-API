@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JList;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Vehicle.VehicleListing;
 import Transaction.CloseBidding;
-
+import Transaction.Offer;
 
 import javax.swing.JSeparator;
 import java.awt.Color;
@@ -38,6 +39,9 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 	private JList list;
 	private JButton btnSearch;
 	private JButton btnCloseBidding;
+	private JTextArea transactionsTA;
+	private JButton btnUpdate;
+	private JTextArea offersTA;
 	
 	public String Url() {
 		return super.Url()+file.getProperty("record");
@@ -62,8 +66,6 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 				}
 			}
 		});
-		System.out.println(new AdminAuctionGUI().getRecord());
-	//	closeBidding("");
 	}
 
 	/**
@@ -75,9 +77,7 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 	}
 	
 	
-	public String getRecord() {
-		return this.get().replaceAll(",", ",\n");
-	}
+	
 	public static void closeBidding(String listingId) {
 		CloseBidding close= new CloseBidding();
 		close.setListingByID(listingId);
@@ -102,29 +102,36 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		JPanel contentPanel = new JPanel();
 		frmAdminAuctionMenu.setContentPane(contentPanel);
 		
-		JTextArea offersTA = new JTextArea();
+		offersTA = new JTextArea();
 		offersTA.setText("Lists of offers");
 		offersTA.setFont(new Font("Constantia", Font.PLAIN, 15));
 		offersTA.setEditable(false);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBackground(Color.YELLOW);
-		separator.setForeground(Color.PINK);
+		separator.setBackground(Color.GRAY);
+		separator.setForeground(Color.BLACK);
 		
 		btnSearch = new JButton("Search Offer");
 		
-		btnSearch.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		btnCloseBidding = new JButton("Close Bidding!");
 
-		btnCloseBidding.setFont(new Font("Impact", Font.PLAIN, 15));
+		btnCloseBidding.setFont(new Font("Impact", Font.PLAIN, 16));
 		
 		JScrollPane scrollPaneTransactions = new JScrollPane();
 		scrollPaneTransactions.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPaneTransactions.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 		JScrollPane scrollPaneListing = new JScrollPane();
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		btnUpdate = new JButton("Update");
+
+		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
@@ -136,10 +143,15 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 							.addComponent(offersTA, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnCloseBidding, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-								.addComponent(btnSearch, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
-					.addGap(14)
+								.addComponent(btnCloseBidding, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+								.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+									.addComponent(btnBack, GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addComponent(btnSearch, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
+						.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE))
+					.addGap(10)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 8, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPaneTransactions, GroupLayout.PREFERRED_SIZE, 375, GroupLayout.PREFERRED_SIZE)
@@ -158,8 +170,12 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(btnCloseBidding, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnCloseBidding, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnUpdate, GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)))
 								.addComponent(offersTA, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap())
 		);
@@ -167,13 +183,17 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		//display JList
 		list = new JList<String>(modeling(listingsAL));		 
 		scrollPaneListing.setViewportView(list);
+		//
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setText("All Transactions");
-		textArea.setLineWrap(true);
-		textArea.setFont(new Font("Constantia", Font.PLAIN, 14));
-		textArea.setEditable(false);
-		scrollPaneTransactions.setViewportView(textArea);
+		transactionsTA = new JTextArea();
+		transactionsTA.setText("All Transactions");
+		transactionsTA.setFont(new Font("Constantia", Font.PLAIN, 14));
+		transactionsTA.setEditable(false);
+		scrollPaneTransactions.setViewportView(transactionsTA);
+		
+		//display all transactions
+		 showTransactions();
+		
 		contentPanel.setLayout(gl_contentPanel);
 	} //end of initialize()
 	
@@ -181,8 +201,21 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 	 * All button's ActionListeners
 	 */
 	private void methodCall() {
+		
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				VehicleListing listing = listingsAL.get(list.getSelectedIndex());
+				List<Offer> offerList = listing.getOffers();
+				if (offerList.isEmpty()) {
+					offersTA.setText("No offer for this listing yet!");
+				} else {
+					String result = "";
+					for (Offer o: offerList) {
+						result += o.toString();
+					}
+					offersTA.setText(result);
+				}
+				showTransactions();
 			}
 		}); //end of ActionListener for Search
 		
@@ -191,6 +224,12 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 			public void actionPerformed(ActionEvent e) {
 			}
 		}); //end of ActionListener for Close Bidding
+		
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showTransactions();
+			}
+		}); //end of ActionListener for Update
 		
 	} //end of methodCall()
 	
@@ -207,6 +246,10 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		}
 		
 		return null;
+	}
+	
+	public void showTransactions() {
+		transactionsTA.setText(this.get().replaceAll(",", ",\n"));
 	}
 	
 	
