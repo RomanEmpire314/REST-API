@@ -62,7 +62,6 @@ public class VehicleListing extends CarAuctionRESTCall {
 		this.$class = $class;
 	}
 
-	@JsonIgnore
 	public String getListingId() {
 		return listingId;
 	}

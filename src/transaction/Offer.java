@@ -3,13 +3,13 @@ package transaction;
 import java.io.IOException;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import Vehicle.VehicleListing;
 import member.Member;
-
 
 
 public class Offer extends Transaction {
@@ -67,7 +67,7 @@ public class Offer extends Transaction {
 	public boolean setMemberByID(String id)
 	{
 		boolean valid=false;
-		if((valid=new VehicleListing().check(id)))
+		if((valid=new Member().check(id)))
 		    this.member+="#"+id;
 		return valid;
 	}

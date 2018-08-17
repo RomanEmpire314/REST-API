@@ -207,7 +207,8 @@ public class GUILogin {
 				
 				//check if it is the admin
 				if (adPassword.equalsIgnoreCase("thecooladmin")) {
-					System.out.println("Admin window"); 
+					AdminGUI.main(null);
+					frmAuctionLogin.dispose();
 				} else {
 					//when it's the user
 					Member testMember = new Member();
@@ -215,7 +216,6 @@ public class GUILogin {
 						JOptionPane.showMessageDialog(null, "User name can't be empty", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						if (testMember.check(userName)) {
-							System.out.println(userName);
 							UserGUI userWindow = new UserGUI(userName);
 							frmAuctionLogin.dispose();
 						} else {

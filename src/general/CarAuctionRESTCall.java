@@ -130,7 +130,6 @@ public class CarAuctionRESTCall
 	  try
 	     {
 			URL url= new URL(this.Url());
-			System.out.println(url + newID);
 			HttpURLConnection connection=(HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);

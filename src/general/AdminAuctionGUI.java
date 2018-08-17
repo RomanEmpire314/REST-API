@@ -77,13 +77,6 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		methodCall();
 	}
 	
-	
-	
-	public static void closeBidding(String listingId) {
-		CloseBidding close= new CloseBidding();
-		close.setListingByID(listingId);
-		close.create(close.genJson());
-	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -104,7 +97,6 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		frmAdminAuctionMenu.setContentPane(contentPanel);
 		
 		offersTA = new JTextArea();
-		offersTA.setText("Lists of offers");
 		offersTA.setFont(new Font("Constantia", Font.PLAIN, 15));
 		offersTA.setEditable(false);
 		
@@ -213,7 +205,7 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 				} else {
 					String result = "";
 					for (Offer o: offerList) {
-						result += o.toString();
+						result += (o.toString() + "\n");
 					}
 					offersTA.setText(result);
 				}
@@ -224,6 +216,13 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		
 		btnCloseBidding.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+		//		public static void closeBidding(String listingId) {
+					CloseBidding close= new CloseBidding();
+					close.setListingByID(listingsAL.get(list.getSelectedIndex()).getListingId());
+					System.out.println(close.genJson());
+					close.create(close.genJson());
+					
+				
 			}
 		}); //end of ActionListener for Close Bidding
 		

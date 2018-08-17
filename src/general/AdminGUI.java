@@ -402,10 +402,11 @@ public class AdminGUI {
 							VehicleListing listing = new VehicleListing(vehicle, listingId.getText(), Double.parseDouble(reservePrice.getText())
 									, description.getText() );
 							String resultJSON = listing.genJson();
+							System.out.println(resultJSON);
 							if (listing.check(listing.getListingId())) { //check for existing vehicles
 								JOptionPane.showMessageDialog(null, "Listing already existed!", "Error", JOptionPane.ERROR_MESSAGE);
 							} else {
-								if (new Vehicle().check(listing.getVehicleID())) { //check for duplicates listings
+								if (new VehicleListing().check(listing.getVehicleID())) { //check for duplicates listings
 									JOptionPane.showMessageDialog(null, "Can't create 2 listings for 1 vehicle",
 											"Error", JOptionPane.ERROR_MESSAGE);
 								} else {

@@ -10,6 +10,7 @@ import Vehicle.VehicleListing;
 
 public class CloseBidding extends Transaction {
 private final String restCall= file.getProperty("CloseBidding");
+private String $class="org.acme.vehicle.auction.CloseBidding";
 private String listing="resource:"+new VehicleListing().get$class();
 
 public String Url(){
@@ -58,4 +59,11 @@ public void getCopyOf(CloseBidding close) {
 	}
 	  return ownerJson;
   }
+
+public String get$class() {
+	return $class;
+}
+public void set$class(String $class) {
+	this.$class = $class;
+}
 }

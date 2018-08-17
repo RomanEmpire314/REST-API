@@ -40,6 +40,7 @@ public class UserAuctionGUI {
 	private JList list;
 	private JButton btnBid;
 	private JTextField offerAmount;
+	private JTextArea stateTA;
 
 	/**
 	 * Launch the application.
@@ -73,17 +74,6 @@ public class UserAuctionGUI {
 		frame.setVisible(true);
 	}
 	
-<<<<<<< HEAD
-	public void makeOffer(String id,String userId, double bid) {
-		Offer offer= new Offer();
-		offer.setListingByID(id);
-		offer.setBidPrice(bid);
-		offer.setMemberByID(userId);
-		offer.create(offer.genJson());
-	}
-=======
-	
->>>>>>> 807006233bdb01227f4d799b2012b1f16f719b0f
 
 	/**
 	 * Initialize the contents of the frame.
@@ -128,27 +118,30 @@ public class UserAuctionGUI {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		JLabel lblState = new JLabel("New label");
+		stateTA = new JTextArea();
+		stateTA.setOpaque(false);
+		stateTA.setLineWrap(true);
+		stateTA.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		stateTA.setEditable(false);
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addComponent(userInfoTA, GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
 							.addGap(4))
 						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addGap(88)
-							.addComponent(btnBid, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addComponent(lblBidPrice)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(offerAmount, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnBid, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+								.addComponent(offerAmount, GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblState, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+						.addComponent(stateTA, GroupLayout.PREFERRED_SIZE, 215, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -162,13 +155,14 @@ public class UserAuctionGUI {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(userInfoTA, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
 							.addGap(69)))
+					.addPreferredGap(ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addGroup(groupLayout.createSequentialGroup()
 								.addComponent(offerAmount, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblState))
-							.addGap(16)
-							.addComponent(btnBid, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+								.addGap(10)
+								.addComponent(btnBid, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addComponent(stateTA, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE))
 						.addComponent(lblBidPrice))
 					.addContainerGap())
 		);
@@ -191,17 +185,23 @@ public class UserAuctionGUI {
 		
 		btnBid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		//		public void makeOffer(String id, double bid) {
 				Offer offer= new Offer();
 				try {
 					offer.setBidPrice(Double.parseDouble(offerAmount.getText()));
-					offer.setListingByID(listingsAL.get(list.getSelectedIndex()).getListingId());
-					offer.create(offer.genJson());
+					if (offer.getBidPrice() >= thisMember.getBalance()) {
+						JOptionPane.showMessageDialog(null, "You can bid more than you have!", "Error", JOptionPane.ERROR_MESSAGE);
+					} else {
+						offer.setListingByID(listingsAL.get(list.getSelectedIndex()).getListingId());
+						offer.setMemberByID(userName);
+						offer.create(offer.genJson());
+					}					
 				} catch (NumberFormatException nem) {
 					JOptionPane.showMessageDialog(null, "Input error!", "Error", JOptionPane.ERROR_MESSAGE);
 				} catch (ArrayIndexOutOfBoundsException aob) {
 					JOptionPane.showMessageDialog(null, "Choose a valid listing", "Error", JOptionPane.ERROR_MESSAGE);
 				}
+				stateTA.setText("New bid for listing#" + offer.getListing().substring(offer.getListing().indexOf('#') +1, offer.getListing().length()) +
+						" for $" + offer.getBidPrice() );
 				
 			}
 		}); //end of ActionListener
