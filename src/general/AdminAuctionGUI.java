@@ -19,8 +19,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Vehicle.VehicleListing;
-import Transaction.CloseBidding;
-import Transaction.Offer;
+import transaction.CloseBidding;
+import transaction.Offer;
 
 import javax.swing.JSeparator;
 import java.awt.Color;

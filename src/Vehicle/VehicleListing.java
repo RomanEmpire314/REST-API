@@ -9,8 +9,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import Transaction.Offer;
 import general.CarAuctionRESTCall;
+import transaction.Offer;
 
 public class VehicleListing extends CarAuctionRESTCall {
 	private final String restCall=file.getProperty("VehicleListing");
