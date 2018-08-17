@@ -144,6 +144,7 @@ public class AdminGUI {
 		separator.setForeground(Color.BLACK);
 		
 		btnNewButton = new JButton("AUCTION");
+
 		
 		btnEditListing = new JButton("Edit");
 		
@@ -488,6 +489,13 @@ public class AdminGUI {
 			}
 		});
 		
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminAuctionGUI.main(null); 
+				frmAdmin.dispose();
+			}
+		});
 		
 		btnNewMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
