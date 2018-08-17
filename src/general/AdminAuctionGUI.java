@@ -19,8 +19,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Vehicle.VehicleListing;
-import Transaction.CloseBidding;
-import Transaction.Offer;
+import transaction.CloseBidding;
+import transaction.Offer;
 
 import javax.swing.JSeparator;
 import java.awt.Color;
@@ -42,6 +42,7 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 	private JTextArea transactionsTA;
 	private JButton btnUpdate;
 	private JTextArea offersTA;
+	private JButton btnBack;
 	
 	public String Url() {
 		return super.Url()+file.getProperty("record");
@@ -126,7 +127,8 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		
 		JScrollPane scrollPaneListing = new JScrollPane();
 		
-		JButton btnBack = new JButton("Back");
+		btnBack = new JButton("Back");
+		
 		btnBack.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		btnUpdate = new JButton("Update");
@@ -225,11 +227,20 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 			}
 		}); //end of ActionListener for Close Bidding
 		
+		
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				showTransactions();
 			}
 		}); //end of ActionListener for Update
+		
+		
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminGUI.main(null);
+				frmAdminAuctionMenu.dispose();
+			}
+		}); //end of ActionListener for Back button
 		
 	} //end of methodCall()
 	

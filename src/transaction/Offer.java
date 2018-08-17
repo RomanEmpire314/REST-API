@@ -1,4 +1,4 @@
-package Transaction;
+package transaction;
 
 import java.io.IOException;
 import java.util.Date;

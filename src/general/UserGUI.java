@@ -116,6 +116,7 @@ public class UserGUI extends JFrame {
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		btnAuction = new JButton("Auction");
+
 		btnAuction.setFont(new Font("Constantia", Font.BOLD, 16));
 		
 		
@@ -331,6 +332,13 @@ public class UserGUI extends JFrame {
 				
 			}
 		});
+		
+		
+		btnAuction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UserAuctionGUI userAuction = new UserAuctionGUI(userName);
+			}
+		}); //end of ActionListener
 		
 		
 	}//end of method methodCall()
