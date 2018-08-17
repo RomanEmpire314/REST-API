@@ -66,6 +66,8 @@ public class AdminGUI {
 	private JButton btnEditMember;
 	private JScrollPane scrollPaneListing;
 	private JButton btnEditListing;
+	private JButton btnDeleteListing;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -141,14 +143,15 @@ public class AdminGUI {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		
-		JButton btnNewButton = new JButton("AUCTION");
+		btnNewButton = new JButton("AUCTION");
 		
 		btnEditListing = new JButton("Edit");
 		
 		
 		JSeparator separator_1 = new JSeparator();
 		
-		JButton btnDeleteListing = new JButton("Remove Listing");
+		btnDeleteListing = new JButton("Remove Listing");
+		
 		
 		btnNewMember = new JButton("Create New");
 		
@@ -425,49 +428,65 @@ public class AdminGUI {
 				
 				JTextField reservePrice = new JTextField();
 				JTextField description = new JTextField();
-				JTextField editBalance = new JTextField();
 				Object [] message = {
-						"First name:", editFirst,
-						"Last name:", editLast,
-						"Balance", editBalance
+						"Reserve price:", reservePrice,
+						"Description:", description						
 				};																				
 				int option = JOptionPane.showConfirmDialog(null, message, "Editor", JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION) {			
-					Member editMember = membersArrayList.get(memberJList.getSelectedIndex());
-					
-					String first = editFirst.getText();
-					String last = editLast.getText();
-					double balanceD;
-					
-					if (first.equals("")) {
-						first = editMember.getFirstName();
+					VehicleListing editListing = listingsArrayList.get(listingJList.getSelectedIndex());
+										
+					if (!reservePrice.getText().equals("")) {
+						editListing.setReservePrice(Double.parseDouble(reservePrice.getText()));
 					}
-					if (last.equals("")) {
-						last = editMember.getLastName();
+					if (!description.getText().equals("")) {
+						editListing.setDescription(description.getText());
 					}
-					if (editBalance.getText().equals("")) {
-						balanceD = editMember.getBalance();
+
+					if (editListing.edit(editListing.getListingId(), editListing.genJson()) == 200) {
+						//successful message
+						JOptionPane.showMessageDialog(null, "Listing changed changed successfully into\n" + editListing.toString(),
+								"Success", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						balanceD = Double.parseDouble(editBalance.getText());
+						//failed message
+						JOptionPane.showMessageDialog(null, "Edit failed!", "Failed", JOptionPane.ERROR_MESSAGE);
 					}
-					
-					editMember.setName(first, last);
-					editMember.setBalance(balanceD);
-					editMember.edit(editMember.getEmail(), editMember.genJson());
 					
 					//update ArrayList
-					membersArrayList = mapMemberObject();
+					listingsArrayList = mapListingObject();
 					
 					//update JList and display
-					memberJList = new JList<String>(modeling(membersArrayList));
-					scrollPaneMember.setViewportView(memberJList);
-					JOptionPane.showMessageDialog(null, "User changed changed successfully into\n" + editMember.toString(),
-							"Success", JOptionPane.INFORMATION_MESSAGE);
+					listingJList = new JList<String>(modeling(listingsArrayList));
+					scrollPaneListing.setViewportView(listingJList);
+					
 				}
 			}
 		}); //end of ActionListener
 		
 		
+		btnDeleteListing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				VehicleListing deleteListing = listingsArrayList.get(listingJList.getSelectedIndex());
+				int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete listing: " + deleteListing.getListingId() + "?" 
+				, "Remove Vehicle Listing", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+				
+				if (option == JOptionPane.OK_OPTION) {
+					if (deleteListing.delete(deleteListing.getListingId())) {
+						JOptionPane.showMessageDialog(null, "Vehicle listing " + deleteListing.getListingId() + " is removed successfully",
+								"Delete Success", JOptionPane.INFORMATION_MESSAGE);
+						//update ArrayList
+						listingsArrayList = mapListingObject();
+				//		lmVehicle = modeling(carsArrayList);
+					} else {
+						JOptionPane.showMessageDialog(null, "Delete failed!", "Failed", JOptionPane.ERROR_MESSAGE);
+					}
+					//update JList
+					listingJList = new JList<String>(modeling(listingsArrayList));
+					scrollPaneListing.setViewportView(listingJList);
+				}
+			}
+		});
 		
 		
 		btnNewMember.addActionListener(new ActionListener() {
