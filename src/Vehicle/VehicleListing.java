@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -61,10 +62,12 @@ public class VehicleListing extends CarAuctionRESTCall {
 		this.$class = $class;
 	}
 
+	@JsonIgnore
 	public String getListingId() {
 		return listingId;
 	}
 
+	@JsonProperty
 	public void setListingId(String listingId) {
 		this.listingId = listingId;
 	}
@@ -159,8 +162,8 @@ public class VehicleListing extends CarAuctionRESTCall {
 	}
 	
 	public String toString() {
-		return "Listing ID: " + this.listingId + "; \nVehicle vin: " +
-				this.vehicle.substring(vehicle.indexOf("#") + 1, vehicle.length()) + "; \nState: " + this.state;
+		return "Listing ID: " + this.listingId + "; \nReserve Price: " + this.reservePrice + "; \nDescription: " + this.description
+				+ "; \nVehicle vin: " +	this.vehicle.substring(vehicle.indexOf("#") + 1, vehicle.length()) + "; \nState: " + this.state;
 	}
 
 	public String getVehicleID() {
