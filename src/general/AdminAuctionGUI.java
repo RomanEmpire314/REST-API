@@ -53,7 +53,7 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 			}
 		});
 		System.out.println(new AdminAuctionGUI().getRecord());
-		closeBidding("123");
+	//	closeBidding("");
 	}
 
 	/**
@@ -178,12 +178,6 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		return null;
 	}
 
-	public ArrayList<VehicleListing> getListingAL() {
-		return listingAL;
-	}
 
-	public void setListingAL(ArrayList<VehicleListing> listingAL) {
-		this.listingAL = listingAL;
-	}
 	
 }
