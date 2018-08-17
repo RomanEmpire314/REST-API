@@ -33,10 +33,11 @@ public class UserAuctionGUI {
 		initialize();
 	}
 	
-	public void makeOffer(String id, double bid) {
+	public void makeOffer(String id,String userId, double bid) {
 		Offer offer= new Offer();
 		offer.setListingByID(id);
 		offer.setBidPrice(bid);
+		offer.setMemberByID(userId);
 		offer.create(offer.genJson());
 	}
 
