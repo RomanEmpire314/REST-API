@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextArea;
@@ -27,11 +28,20 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AdminAuctionGUI extends CarAuctionRESTCall {
 
 	private JFrame frmAdminAuctionMenu;
-	private ArrayList<VehicleListing> listingAL;
+	private ArrayList<VehicleListing> listingsAL;
+	private JList list;
+	private JButton btnSearch;
+	private JButton btnCloseBidding;
+	
+	public String Url() {
+		return super.Url()+file.getProperty("record");
+	}
 	
 	/**
 	 * Launch the application.
@@ -61,11 +71,10 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 	 */
 	public AdminAuctionGUI() {
 		initialize();
+		methodCall();
 	}
 	
-	public String Url() {
-		return super.Url()+file.getProperty("record");
-	}
+	
 	public String getRecord() {
 		return this.get().replaceAll(",", ",\n");
 	}
@@ -85,10 +94,13 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		frmAdminAuctionMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAdminAuctionMenu.setLocationRelativeTo(null);
 		
+		//IMPORTANT creating ArrayList listing
+		listingsAL = mapListingObject();
+		//IMPORTANT
+		
+		
 		JPanel contentPanel = new JPanel();
 		frmAdminAuctionMenu.setContentPane(contentPanel);
-		
-		JList Listings = new JList();
 		
 		JTextArea offersTA = new JTextArea();
 		offersTA.setText("Lists of offers");
@@ -100,14 +112,19 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		separator.setBackground(Color.YELLOW);
 		separator.setForeground(Color.PINK);
 		
-		JButton btnSearch = new JButton("Search");
+		btnSearch = new JButton("Search Offer");
 		
-		JButton btnCloseBidding = new JButton("Close Bidding!");
+		btnSearch.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		
+		btnCloseBidding = new JButton("Close Bidding!");
+
 		btnCloseBidding.setFont(new Font("Impact", Font.PLAIN, 15));
 		
 		JScrollPane scrollPaneTransactions = new JScrollPane();
 		scrollPaneTransactions.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPaneTransactions.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+		JScrollPane scrollPaneListing = new JScrollPane();
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
@@ -120,8 +137,8 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnCloseBidding, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
-								.addComponent(btnSearch, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
-						.addComponent(Listings, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
+								.addComponent(btnSearch, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
 					.addGap(14)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 8, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -132,20 +149,24 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(separator, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(separator, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
 						.addComponent(scrollPaneTransactions, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
-							.addComponent(Listings, GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-								.addGroup(Alignment.LEADING, gl_contentPanel.createSequentialGroup()
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+							.addGap(18)
+							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGap(18)
 									.addComponent(btnCloseBidding, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
 								.addComponent(offersTA, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap())
 		);
+		
+		//display JList
+		list = new JList<String>(modeling(listingsAL));		 
+		scrollPaneListing.setViewportView(list);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setText("All Transactions");
@@ -154,14 +175,24 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		textArea.setEditable(false);
 		scrollPaneTransactions.setViewportView(textArea);
 		contentPanel.setLayout(gl_contentPanel);
-	}
+	} //end of initialize()
 	
 	/**
 	 * All button's ActionListeners
 	 */
 	private void methodCall() {
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		}); //end of ActionListener for Search
 		
-	}
+		
+		btnCloseBidding.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		}); //end of ActionListener for Close Bidding
+		
+	} //end of methodCall()
 	
 	private ArrayList<VehicleListing> mapListingObject() {
 		VehicleListing currentListing = new VehicleListing();
@@ -177,7 +208,22 @@ public class AdminAuctionGUI extends CarAuctionRESTCall {
 		
 		return null;
 	}
+	
+	
+	/**
+	 * convert ArrayList into DefaultListModel
+	 * @param arrayList list of objects: vehicles, listings, or members
+	 * @return its DefaultListModel
+	 */
+	private <T> DefaultListModel<String> modeling (ArrayList<T> arrayList) {
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		for(Object o:arrayList){
+			String s = o.toString();
+		    model.addElement(s);
+		}
+		return model;
+	}
 
 
 	
-}
+} //end of class

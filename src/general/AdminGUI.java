@@ -56,7 +56,6 @@ public class AdminGUI {
 	private JList<String> listingJList;
 	private JList<String> memberJList;
 	private JButton btnNewVehicle;
-//	private DefaultListModel<String> lmVehicle;
 	private JButton btnDeleteVehicle;
 	private JButton btnAddListing;
 	private JButton btnNewMember;
@@ -68,6 +67,7 @@ public class AdminGUI {
 	private JButton btnEditListing;
 	private JButton btnDeleteListing;
 	private JButton btnNewButton;
+	private JButton btnNewButton_1;
 
 	/**
 	 * Launch the application.
@@ -162,6 +162,8 @@ public class AdminGUI {
 		
 		btnDeleteMember = new JButton("Delete");
 		
+		btnNewButton_1 = new JButton("Back");
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -200,21 +202,18 @@ public class AdminGUI {
 							.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
 					.addGap(13)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(scrollPaneMember, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(gl_contentPane.createSequentialGroup()
+						.addComponent(scrollPaneMember, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(5)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-									.addComponent(btnDeleteMember, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnEditMember, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap())
-								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-									.addComponent(btnNewMember, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-									.addGap(45))))))
+								.addComponent(btnDeleteMember, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnNewMember, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnEditMember, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -234,28 +233,34 @@ public class AdminGUI {
 										.addComponent(scrollPaneMember, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
 										.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
 										.addComponent(scrollPaneVehicle, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 										.addGroup(gl_contentPane.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-													.addComponent(btnNewVehicle)
-													.addComponent(btnAddListing))
-												.addComponent(btnNewButton))
-											.addPreferredGap(ComponentPlacement.RELATED))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addComponent(btnNewMember)
-											.addPreferredGap(ComponentPlacement.RELATED)))
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-											.addComponent(btnEditListing)
-											.addComponent(btnDeleteListing)
-											.addComponent(btnDeleteMember)
-											.addComponent(btnEditMember))
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+													.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+														.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+															.addComponent(btnNewVehicle)
+															.addComponent(btnAddListing))
+														.addComponent(btnNewButton))
+													.addPreferredGap(ComponentPlacement.RELATED))
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(btnNewMember)
+													.addPreferredGap(ComponentPlacement.RELATED)))
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+													.addComponent(btnEditListing)
+													.addComponent(btnDeleteListing)
+													.addComponent(btnDeleteMember))
+												.addGroup(gl_contentPane.createSequentialGroup()
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(btnDeleteVehicle))))
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(btnDeleteVehicle)))))
+											.addComponent(btnNewButton_1)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(btnEditMember)))))
 							.addGap(14))
 						.addComponent(separator_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)))
 		);
