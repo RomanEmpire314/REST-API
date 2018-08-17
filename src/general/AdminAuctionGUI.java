@@ -4,7 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class AdminAuctionGUI {
+import Transaction.CloseBidding;
+
+public class AdminAuctionGUI extends CarAuctionRESTCall {
 
 	private JFrame frame;
 
@@ -22,6 +24,8 @@ public class AdminAuctionGUI {
 				}
 			}
 		});
+		System.out.println(new AdminAuctionGUI().getRecord());
+		closeBidding("123");
 	}
 
 	/**
@@ -29,6 +33,18 @@ public class AdminAuctionGUI {
 	 */
 	public AdminAuctionGUI() {
 		initialize();
+	}
+	
+	public String Url() {
+		return super.Url()+file.getProperty("record");
+	}
+	public String getRecord() {
+		return this.get().replaceAll(",", ",\n");
+	}
+	public static void closeBidding(String listingId) {
+		CloseBidding close= new CloseBidding();
+		close.setListingByID(listingId);
+		close.create(close.genJson());
 	}
 
 	/**
