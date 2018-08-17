@@ -10,7 +10,7 @@ import Vehicle.VehicleListing;
 
 public class CloseBidding extends Transaction {
 private final String restCall= file.getProperty("CloseBidding");
-private String listing;
+private String listing="resource:"+new VehicleListing().get$class();
 
 public String Url(){
     return (this.restServer+restCall);

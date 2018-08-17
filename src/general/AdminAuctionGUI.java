@@ -10,7 +10,6 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.swing.JList;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -18,6 +17,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Vehicle.VehicleListing;
+import Transaction.CloseBidding;
+
 
 import javax.swing.JSeparator;
 import java.awt.Color;
@@ -27,7 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 
-public class AdminAuctionGUI {
+public class AdminAuctionGUI extends CarAuctionRESTCall {
 
 	private JFrame frmAdminAuctionMenu;
 	private ArrayList<VehicleListing> listingAL;
@@ -51,6 +52,8 @@ public class AdminAuctionGUI {
 				}
 			}
 		});
+		System.out.println(new AdminAuctionGUI().getRecord());
+		closeBidding("123");
 	}
 
 	/**
@@ -58,6 +61,18 @@ public class AdminAuctionGUI {
 	 */
 	public AdminAuctionGUI() {
 		initialize();
+	}
+	
+	public String Url() {
+		return super.Url()+file.getProperty("record");
+	}
+	public String getRecord() {
+		return this.get().replaceAll(",", ",\n");
+	}
+	public static void closeBidding(String listingId) {
+		CloseBidding close= new CloseBidding();
+		close.setListingByID(listingId);
+		close.create(close.genJson());
 	}
 
 	/**
