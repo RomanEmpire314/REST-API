@@ -3,6 +3,8 @@ package general;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
 
 public class AdminAuctionGUI {
 
@@ -38,6 +40,16 @@ public class AdminAuctionGUI {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JPanel panel = new JPanel();
+		frame.setContentPane(panel);
+	}
+	
+	/**
+	 * All button's ActionListeners
+	 */
+	private void methodCall() {
+		
 	}
 
 }
