@@ -67,7 +67,7 @@ public class AdminGUI {
 	private JButton btnEditListing;
 	private JButton btnDeleteListing;
 	private JButton btnNewButton;
-	private JButton btnNewButton_1;
+	private JButton btnBack;
 
 	/**
 	 * Launch the application.
@@ -144,6 +144,7 @@ public class AdminGUI {
 		separator.setForeground(Color.BLACK);
 		
 		btnNewButton = new JButton("AUCTION");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		
 		btnEditListing = new JButton("Edit");
@@ -162,7 +163,8 @@ public class AdminGUI {
 		
 		btnDeleteMember = new JButton("Delete");
 		
-		btnNewButton_1 = new JButton("Back");
+		btnBack = new JButton("Back");
+		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -211,7 +213,7 @@ public class AdminGUI {
 								.addComponent(btnNewMember, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnBack, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnEditMember, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
@@ -258,7 +260,7 @@ public class AdminGUI {
 													.addComponent(btnDeleteVehicle))))
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(btnNewButton_1)
+											.addComponent(btnBack)
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(btnEditMember)))))
 							.addGap(14))
@@ -623,6 +625,13 @@ public class AdminGUI {
 			}
 		}); //end of ActionListener
 		
+		
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GUILogin.main(null);
+				frmAdmin.dispose();
+			}
+		}); //end of ActionListener
 		
 		
 	} //end of method methodCall()
