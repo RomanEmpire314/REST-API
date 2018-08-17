@@ -113,4 +113,9 @@ public class Offer extends Transaction {
 		}
 		  return ownerJson;
 	  }
+	  public String toString()
+	  {
+		  return this.getMember().replace("resource:"+new Member().get$class()+"#", "")+":"+this.getBidPrice();
+	  }
+	  
 }
