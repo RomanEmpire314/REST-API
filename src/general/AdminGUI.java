@@ -55,18 +55,18 @@ public class AdminGUI {
 	private JList<String> vehicleJList;
 	private JList<String> listingJList;
 	private JList<String> memberJList;
+	private JScrollPane scrollPaneVehicle;
+	private JScrollPane scrollPaneListing;
+	private JScrollPane scrollPaneMember;
+	private JButton btnDeleteMember;
+	private JButton btnEditMember;
+	private JButton btnEditListing;
 	private JButton btnNewVehicle;
 	private JButton btnDeleteVehicle;
 	private JButton btnAddListing;
 	private JButton btnNewMember;
-	private JScrollPane scrollPaneVehicle;
-	private JScrollPane scrollPaneMember;
-	private JButton btnDeleteMember;
-	private JButton btnEditMember;
-	private JScrollPane scrollPaneListing;
-	private JButton btnEditListing;
 	private JButton btnDeleteListing;
-	private JButton btnNewButton;
+	private JButton btnAuction;
 	private JButton btnBack;
 
 	/**
@@ -89,6 +89,7 @@ public class AdminGUI {
 			}
 		});
 	}
+	
 
 	/**
 	 * Create the application.
@@ -97,6 +98,7 @@ public class AdminGUI {
 		initialize();
 		methodCall();
 	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -105,6 +107,7 @@ public class AdminGUI {
 		JPanel contentPane = new JPanel();
 		
 		frmAdmin = new JFrame();
+		frmAdmin.setResizable(false);
 		frmAdmin.setTitle("Admin Window");
 		frmAdmin.setBounds(100, 100, 663, 400);
 		frmAdmin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -135,34 +138,22 @@ public class AdminGUI {
 		JLabel lblMember = new JLabel("Member");
 		lblMember.setFont(new Font("Impact", Font.PLAIN, 17));
 		
-		btnNewVehicle = new JButton("Create New");
-		btnDeleteVehicle = new JButton("Delete");
-		btnAddListing = new JButton("Add to Listing");
-		
-		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLACK);
 		
-		btnNewButton = new JButton("AUCTION");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-
-		
-		btnEditListing = new JButton("Edit");
-		
-		
 		JSeparator separator_1 = new JSeparator();
 		
+		btnAuction = new JButton("AUCTION");
+		btnAuction.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		btnNewVehicle = new JButton("Create New");
+		btnDeleteVehicle = new JButton("Delete");
+		btnAddListing = new JButton("Add to Listing");
 		btnDeleteListing = new JButton("Remove Listing");
-		
-		
 		btnNewMember = new JButton("Create New");
-		
-		
 		btnEditMember = new JButton("Edit");
-		
-		
 		btnDeleteMember = new JButton("Delete");
-		
+		btnEditListing = new JButton("Edit");
 		btnBack = new JButton("Back");
 		
 		
@@ -181,40 +172,40 @@ public class AdminGUI {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(scrollPaneVehicle, GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(btnNewVehicle)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(scrollPaneVehicle, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+								.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+									.addComponent(btnNewVehicle, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnAddListing))))
+									.addComponent(btnDeleteVehicle, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(55)
-							.addComponent(btnDeleteVehicle, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)))
+							.addGap(45)
+							.addComponent(btnAddListing)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnEditListing, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnEditListing, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnDeleteListing, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
-						.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+						.addComponent(btnAuction, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(1)
-							.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)))
+							.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addGap(13)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(scrollPaneMember, GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(5)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnDeleteMember, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnNewMember, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(btnBack, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnEditMember, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnEditMember, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnBack, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -222,71 +213,73 @@ public class AdminGUI {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(separator, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_contentPane.createSequentialGroup()
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+									.addComponent(lblVehicle)
+									.addComponent(lblMember, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblListed, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblVehicle)
-										.addComponent(lblMember, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblListed, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(scrollPaneMember, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-										.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-										.addComponent(scrollPaneVehicle, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_contentPane.createSequentialGroup()
-													.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-													.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-														.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-															.addComponent(btnNewVehicle)
-															.addComponent(btnAddListing))
-														.addComponent(btnNewButton))
-													.addPreferredGap(ComponentPlacement.RELATED))
-												.addGroup(gl_contentPane.createSequentialGroup()
-													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addComponent(btnNewMember)
-													.addPreferredGap(ComponentPlacement.RELATED)))
-											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-													.addComponent(btnEditListing)
-													.addComponent(btnDeleteListing)
-													.addComponent(btnDeleteMember))
+										.addComponent(scrollPaneVehicle, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+										.addComponent(scrollPaneListing, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+									.addComponent(scrollPaneMember, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+												.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+													.addGroup(gl_contentPane.createSequentialGroup()
+														.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+														.addComponent(btnAuction)
+														.addPreferredGap(ComponentPlacement.RELATED))
+													.addGroup(gl_contentPane.createSequentialGroup()
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addComponent(btnBack)
+														.addPreferredGap(ComponentPlacement.RELATED)))
 												.addGroup(gl_contentPane.createSequentialGroup()
 													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(btnDeleteVehicle))))
-										.addGroup(gl_contentPane.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(btnBack)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(btnEditMember)))))
-							.addGap(14))
-						.addComponent(separator_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)))
+													.addComponent(btnAddListing)
+													.addPreferredGap(ComponentPlacement.RELATED)))
+											.addGroup(gl_contentPane.createSequentialGroup()
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(btnNewMember)
+												.addPreferredGap(ComponentPlacement.RELATED)))
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+											.addComponent(btnEditListing)
+											.addComponent(btnDeleteListing)
+											.addComponent(btnDeleteMember)
+											.addComponent(btnDeleteVehicle)
+											.addComponent(btnNewVehicle)))
+									.addComponent(btnEditMember))
+								.addGap(14))
+							.addComponent(separator_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(separator, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+							.addGap(30))))
 		);
 		
-	//	lmVehicle = modeling(carsArrayList);
+		//displaying the JLists
 		vehicleJList = new JList<String>(modeling(carsArrayList));
+		vehicleJList.setFont(new Font("Cambria", Font.PLAIN, 13));
 		vehicleJList.setSelectedIndex(0);
 		scrollPaneVehicle.setViewportView(vehicleJList);
 		
 		memberJList = new JList<String>(modeling(membersArrayList));
+		memberJList.setFont(new Font("Cambria", Font.PLAIN, 13));
 		memberJList.setSelectedIndex(0);
 		scrollPaneMember.setViewportView(memberJList);
 		
 		listingJList = new JList<String>(modeling(listingsArrayList));
+		listingJList.setFont(new Font("Cambria", Font.PLAIN, 13));
 		listingJList.setSelectedIndex(0);
 		scrollPaneListing.setViewportView(listingJList);
 		
 		
-		
-
 		contentPane.setLayout(gl_contentPane);
-		
-		
 	}
+	
 	
 	/**
 	 * convert ArrayList into DefaultListModel
@@ -302,6 +295,9 @@ public class AdminGUI {
 		return model;
 	}
 	
+	/**
+	 * buttons' ActionListeners
+	 */
 	private void methodCall() {
 		
 		btnNewVehicle.addActionListener(new ActionListener() {
@@ -412,9 +408,11 @@ public class AdminGUI {
 								} else {
 									//create new listing
 									if (listing.create(resultJSON)) {
+										//show success message
 										JOptionPane.showMessageDialog(null, "Create listing successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
 										listingsArrayList = mapListingObject();
 									} else {
+										//fail for any other reason
 										JOptionPane.showMessageDialog(null, "Listing creation failed", "Error", JOptionPane.ERROR_MESSAGE);
 									}
 								}
@@ -431,6 +429,7 @@ public class AdminGUI {
 				
 			}
 		}); //end of ActionListener
+		
 		
 		btnEditListing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -497,13 +496,16 @@ public class AdminGUI {
 			}
 		});
 		
-		
-		btnNewButton.addActionListener(new ActionListener() {
+		/**
+		 * to Admin Auction window
+		 */
+		btnAuction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AdminAuctionGUI.main(null); 
 				frmAdmin.dispose();
 			}
 		});
+		
 		
 		btnNewMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -556,6 +558,7 @@ public class AdminGUI {
 			}
 		}); //end of ActionListener
 		
+		
 		btnDeleteMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -579,6 +582,7 @@ public class AdminGUI {
 				}
 			}
 		}); //end of ActionListener
+		
 		
 		btnEditMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -626,7 +630,9 @@ public class AdminGUI {
 			}
 		}); //end of ActionListener
 		
-		
+		/**
+		 * Back to Login window
+		 */
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUILogin.main(null);
@@ -638,7 +644,10 @@ public class AdminGUI {
 	} //end of method methodCall()
 	
 	
-	
+	/**
+	 * map JSON data to ArrayList of Vehicle
+	 * @return an ArrayList<Vehicle>
+	 */
 	private ArrayList<Vehicle> mapVehicleObject() {
 		Vehicle currentVehicle = new Vehicle();
 		String jsonFetched = currentVehicle.get();
@@ -646,7 +655,8 @@ public class AdminGUI {
 		try {
 
 			//map JSON string into Vehicle object ArrayList
-			ArrayList<Vehicle> listVehicle = mapper.readValue(jsonFetched, new TypeReference<ArrayList<Vehicle>>(){});			return listVehicle;
+			ArrayList<Vehicle> listVehicle = mapper.readValue(jsonFetched, new TypeReference<ArrayList<Vehicle>>(){});
+			return listVehicle;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -654,6 +664,10 @@ public class AdminGUI {
 		return null;
 	}
 	
+	/**
+	 * map JSON data to ArrayList of VehicleListing
+	 * @return an ArrayList<VehicleListing>
+	 */
 	private ArrayList<VehicleListing> mapListingObject() {
 		VehicleListing currentListing = new VehicleListing();
 		String jsonFetched = currentListing.get();
@@ -669,6 +683,10 @@ public class AdminGUI {
 		return null;
 	}
 	
+	/**
+	 * map JSON data to ArrayList of Member
+	 * @return an ArrayList<Member>
+	 */
 	private ArrayList<Member> mapMemberObject() {
 		Member currentListing = new Member();
 		String jsonFetched = currentListing.get();
@@ -683,4 +701,5 @@ public class AdminGUI {
 		
 		return null;
 	}
+	
 } //end of class

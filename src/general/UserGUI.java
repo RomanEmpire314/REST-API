@@ -24,20 +24,23 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.DropMode;
+import java.awt.Cursor;
 
 public class UserGUI extends JFrame {
 
 	private JPanel contentPane;
-	Member currentMember = new Member ();
 	private JButton btnEditName;
 	private JButton btnDeleteAccount;
-	private String userName;
-	private JTextArea infoViewTA;
-	private JButton btnDeposit;
-	private JButton btnWithdrawal;
-	private JTextField balanceTF;
 	private JButton btnLogOut;
 	private JButton btnAuction;
+	private JButton btnDeposit;
+	private JButton btnWithdrawal;
+	private String userName;
+	private JTextArea infoViewTA;	
+	private JTextField balanceTF;	
+	Member currentMember = new Member (); //Member object during the window
+
 	
 	/**
 	 * Launch the application.
@@ -60,8 +63,10 @@ public class UserGUI extends JFrame {
 		});
 	}
 
+	
 	/**
-	 * Create the frame.
+	 * Creating the frame
+	 * @param ID: User identified username
 	 */
 	public UserGUI(String ID) {
 		setVisible(true);
@@ -79,6 +84,10 @@ public class UserGUI extends JFrame {
 		
 		//display info
 		infoViewTA = new JTextArea();
+		infoViewTA.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		infoViewTA.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		infoViewTA.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+		infoViewTA.setOpaque(false);
 		infoViewTA.setFont(new Font("Constantia", Font.PLAIN, 14));
 		
 		//IMPORTANT Get user's info as json string and map it to the object Member
@@ -89,22 +98,20 @@ public class UserGUI extends JFrame {
 		infoViewTA.setText(currentMember.toString());
 		infoViewTA.setEditable(false);
 		infoViewTA.setLineWrap(true);
-		infoViewTA.setOpaque(false);
 		
 		JLabel lblAccount = new JLabel("Account Setting");
 		lblAccount.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		
 		btnEditName = new JButton("Edit Name");
-		btnEditName.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnEditName.setFont(new Font("Cambria", Font.PLAIN, 13));
 		btnDeleteAccount = new JButton("Delete Account");
-		btnDeleteAccount.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnDeleteAccount.setFont(new Font("Cambria", Font.PLAIN, 13));
 		btnDeposit = new JButton("Deposit");
-		btnDeposit.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnDeposit.setFont(new Font("Cambria", Font.PLAIN, 13));
 		btnWithdrawal = new JButton("Withdrawal");
-		btnWithdrawal.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		btnWithdrawal.setFont(new Font("Cambria", Font.PLAIN, 13));
 		btnLogOut = new JButton("Log Out");
-		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-
+		btnLogOut.setFont(new Font("Cambria", Font.PLAIN, 13));
 		
 		balanceTF = new JTextField();
 		balanceTF.setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -112,15 +119,11 @@ public class UserGUI extends JFrame {
 		balanceTF.setColumns(10);
 		
 		JLabel label = new JLabel("$");
-		label.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		label.setFont(new Font("Cambria", Font.PLAIN, 13));
 		label.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		btnAuction = new JButton("Auction");
-
-		btnAuction.setFont(new Font("Constantia", Font.BOLD, 16));
-		
-		
-
+		btnAuction.setFont(new Font("Cambria", Font.BOLD, 16));
 		
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -196,10 +199,12 @@ public class UserGUI extends JFrame {
 							.addGap(23))))
 		);
 		contentPane.setLayout(gl_contentPane);
-		
 		methodCall();
 	}
 	
+	/**
+	 * Add buttons' ActionListener
+	 */
 	public void methodCall() {
 		
 		btnEditName.addActionListener(new ActionListener() {
@@ -222,17 +227,26 @@ public class UserGUI extends JFrame {
 						last = currentMember.getLastName();
 					}
 					
-					currentMember.setName(first, last);
-					currentMember.edit(userName, currentMember.genJson());
 					
+					currentMember.setName(first, last); //update object Members
+					if (currentMember.edit(userName, currentMember.genJson()) == 200)  { //query server 
+						//show success message
+						JOptionPane.showMessageDialog(null, "Name changed successfully into " + currentMember.toString(),
+								"Success", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						//failed message for any reason
+						JOptionPane.showMessageDialog(null, "Name change failed", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
+					//update GUI
 					infoViewTA.setText(currentMember.toString());
-					JOptionPane.showMessageDialog(null, "Name changed successfully into " + currentMember.toString(),
-							"Success", JOptionPane.INFORMATION_MESSAGE);
-				}
+					
+				} //end of JOptionPane.OK_OPTION
 				
 			}
-		});
+		}); //end of ActionListener
 		
+
 		btnDeleteAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -242,23 +256,29 @@ public class UserGUI extends JFrame {
 				
 				if (option == JOptionPane.OK_OPTION) {
 					if (currentMember.delete()) {
+						//show success message
 						JOptionPane.showMessageDialog(null, "User " + userName + " is deleted successfully",
 								"Delete Success", JOptionPane.INFORMATION_MESSAGE);
 						infoViewTA.setText("User deleted");
+					} else {
+						//failed message for any reason
+						JOptionPane.showMessageDialog(null, "User delete failed", "Error", JOptionPane.ERROR_MESSAGE);
 					}
-				}
-				
+				} //end of JOptionPane.OK_OPTION
 				
 			}
-		});
+		}); //end of ActionListener
 		
+		
+		/**
+		 * Can be connected to transfer money automatically to user's bank account
+		 */
 		btnWithdrawal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double amountWithdraw; //input amount
 				
 				try {
-					amountWithdraw = Double.parseDouble(balanceTF.getText());
-					
+					amountWithdraw = Double.parseDouble(balanceTF.getText());					
 					//confirm withdrawal
 					int option = JOptionPane.showConfirmDialog(null, "You want to withdraw $" + amountWithdraw + "?",
 							"Withdraw", JOptionPane.YES_NO_OPTION);
@@ -291,9 +311,12 @@ public class UserGUI extends JFrame {
 				}
 				
 			}
-		});
+		}); //end of ActionListener
 		
 		
+		/**
+		 * Can be connected to withdraw money automatically from user's bank account
+		 */
 		btnDeposit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				double amountDeposit;
@@ -324,6 +347,9 @@ public class UserGUI extends JFrame {
 			
 		});
 				
+		/**
+		 * back to Login Menu
+		 */
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -333,14 +359,16 @@ public class UserGUI extends JFrame {
 			}
 		});
 		
-		
+		/**
+		 * to Member Auction menu
+		 */
 		btnAuction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UserAuctionGUI userAuction = new UserAuctionGUI(userName);
 			}
 		}); //end of ActionListener
 		
-		
 	}//end of method methodCall()
+	
 	
 } //end of class

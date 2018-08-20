@@ -153,8 +153,11 @@ public class GUILogin {
 		
 	}
 	
-	
+	/**
+	 * All buttons' ActionListener
+	 */
 	private void methodCall() {
+		
 		btnCreateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JTextField emailCreate = new JTextField();
@@ -192,7 +195,7 @@ public class GUILogin {
 							}
 						}
 						
-					}
+					} //end of JOptionPane.OK_OPTION
 					
 				} while ( (firstCreate.getText().equals("") || lastCreate.getText().equals("") ||
 						balanceCreate.getText().equals("") || emailCreate.getText().equals("") ) && option == JOptionPane.OK_OPTION );
@@ -216,6 +219,7 @@ public class GUILogin {
 						JOptionPane.showMessageDialog(null, "User name can't be empty", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						if (testMember.check(userName)) {
+							//if works, move to user window
 							UserGUI userWindow = new UserGUI(userName);
 							frmAuctionLogin.dispose();
 						} else {
@@ -225,7 +229,7 @@ public class GUILogin {
 					}
 				}
 			}
-		});
+		}); //end of ActionListener
 		
 		
 		

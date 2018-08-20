@@ -36,11 +36,19 @@ public class CarAuctionRESTCall
 	  }
 	}
 	
+	/**
+	 * 
+	 * @return URL from config file
+	 */
+	public String Url()
+	{
+		return restServer;
+	}
 	
-  public String Url()
-  {
-    return restServer;
-  }
+	/**
+	 * Method to get all information from server in JSON form
+	 * @return JSON form
+	 */
   public String get()
   {
     String finalString="";
@@ -71,6 +79,11 @@ public class CarAuctionRESTCall
     return finalString;
   }
   
+  /**
+   * get JSON-formed information from the server
+   * @param iD: ID of the requested info
+   * @return: Requested info in JSON form
+   */
   public String getByID(String iD)
   {
     String finalString="";
@@ -104,6 +117,12 @@ public class CarAuctionRESTCall
     }
     return finalString;
   }
+  
+  /**
+   * Check if the object is present on the web
+   * @param iD: ID of the object
+   * @return: true or false depending of the object is present
+   */
   public boolean check(String iD)
   {
     boolean result=false;
@@ -125,6 +144,12 @@ public class CarAuctionRESTCall
      }
     return result; 
   }
+  
+  /**
+   * Create new object on REST server
+   * @param newID: new object in JSON form
+   * @return: boolean whether object is created successfully
+   */
   public boolean create(String newID)
   {
 	  try
@@ -148,6 +173,12 @@ public class CarAuctionRESTCall
 	     }
 	  return false; 
   }
+  
+  /**
+   * Delete an object on REST server
+   * @param newID: object being deleted in JSON form
+   * @return: boolean whether object is deleted successfully
+   */
   public boolean delete(String iD)
   {
 	  boolean result=false;
@@ -168,6 +199,13 @@ public class CarAuctionRESTCall
 	  }
 	  return result;
   }
+  
+  /**
+   * Edit an object on REST server
+   * @param iD: of the edited object
+   * @param info: new edited info in JSON form
+   * @return: server response code
+   */
   public int edit(String iD, String info)
   {
 	  try	
@@ -181,7 +219,7 @@ public class CarAuctionRESTCall
 	       OutputStream outputStream=connection.getOutputStream();
 	       outputStream.write(info.getBytes());
 	       outputStream.close();
-	       return connection.getResponseCode();
+	       return connection.getResponseCode(); //expecting 200
 	     }
 	       catch(IOException e)
 	     {
@@ -189,11 +227,15 @@ public class CarAuctionRESTCall
 	     }
 	  return 0;
   }
+  
+  /**
+   * For testing
+   * @param args
+   */
   public static void main (String[] args) {
-	  CarAuctionRESTCall auction= new CarAuctionRESTCall();
-	  System.out.println(auction.restServer);
   }
-}
+  
+} // end of class
 
 
 
